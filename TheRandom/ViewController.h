@@ -15,11 +15,9 @@
     IBOutlet UIView* itemRdCard;
     IBOutlet UIImageView* imgView;
     IBOutlet UILabel* lbTheRandom;
-    
     NSArray* listButton;
     NSInteger currentSelect;
 }
-
 
 @end
 

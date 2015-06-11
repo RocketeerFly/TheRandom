@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
+@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate>{
     IBOutlet UITextField* tfMin;
     IBOutlet UITextField* tfMax;
     IBOutlet UILabel* lbResult;
-    IBOutlet UITextField* tfRecent;
+    IBOutlet UIButton* btnRecent;
+    IBOutlet UIButton* btnRandomize;
     NSArray* arrColor;
+    NSMutableArray* arrRecent;
     int currentColorIndex;
+    NSTimer* timer;
+    int countTimer;
+    int oldColorIndex;
+    bool isRolling;
 }
 
 @end

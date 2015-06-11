@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RandomList : UIViewController
+@interface RandomList : UIViewController<UITextViewDelegate>{
+    IBOutlet UITextView* tfList;
+}
 
 @end

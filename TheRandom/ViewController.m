@@ -13,7 +13,7 @@
 @end
 
 #define colorLigthGreen [UIColor colorWithRed:193/255.0 green:255/255.0 blue:193/255.0 alpha:1.0f].CGColor;
-#define colorUpGreen [UIColor colorWithRed:150/255.0 green:255/255.0 blue:150/255.0 alpha:1.0f].CGColor;
+#define colorUpGreen [UIColor colorWithRed:110/255.0 green:255/255.0 blue:80/255.0 alpha:1.0f].CGColor;
 #define colorGreen [UIColor colorWithRed:0/255.0 green:193/255.0 blue:0/255.0 alpha:1.0f].CGColor;
 
 @implementation ViewController
@@ -29,7 +29,6 @@
         borderWidth = 2;
     }else{
         rateCorner = 0.5;
-        NSLog(@"%@",lbTheRandom.font.fontName);
         UIFont* font = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTheRandom.font.fontName] size:18];
         borderWidth = 1;
         lbTheRandom.font = font;
