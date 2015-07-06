@@ -27,7 +27,8 @@
 #define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define colorTintButton [UIColor grayColor]
 #define colorSelectedButton [UIColor colorWithRed:14/255.0f green:121/255.0f blue:255/255.0f alpha:1.0f]
-
+#define TIP_MESSAGE @"Select number of dices and then touch the screen \n or shake your %@"
+#define TIP_MESSAGE_FIRST @"Touch the screen or shake your %@ to roll"
 
 @implementation RandomDice
 
