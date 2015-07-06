@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iAd/iAd.h>
 
-@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate>{
+@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,ADBannerViewDelegate>{
     IBOutlet UITextField* tfMin;
     IBOutlet UITextField* tfMax;
     IBOutlet UILabel* lbResult;
@@ -21,6 +22,17 @@
     int countTimer;
     int oldColorIndex;
     bool isRolling;
+    bool isHoldButtonMode;
+    NSInteger minInput;
+    NSInteger maxInput;
+    IBOutlet NSLayoutConstraint* csHeighButtonIphone;
+    IBOutlet NSLayoutConstraint* csHeighButtonIpad;
+    IBOutlet NSLayoutConstraint* csButtonRecentBottomIphone;
+    IBOutlet NSLayoutConstraint* csButtonRecentBottomIpad;
+    
+    bool isBannerIsVisible;
+    ADBannerView* bannerView;
+    bool isIphone;
 }
 
 @end

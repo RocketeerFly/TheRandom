@@ -7,6 +7,7 @@
 //
 
 #import "RandomList.h"
+#import "RandomListResult.h"
 
 @interface RandomList ()
 @end
@@ -18,11 +19,66 @@ static NSString *const placeholder = @"Please input list";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    int radius = 10;
+    //update height
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        tfList.font = [UIFont systemFontOfSize:20];
+        btnRandomize.titleLabel.font = [UIFont systemFontOfSize:20];
+        radius = 14;
+    }
+    
     tfList.layer.borderColor = [UIColor lightGrayColor].CGColor;
     tfList.layer.borderWidth = 1;
-    tfList.layer.cornerRadius = 8;
+    tfList.layer.cornerRadius = radius;
     tfList.contentMode = UIViewContentModeTopLeft;
     [tfList setContentOffset:CGPointZero];
+    
+    CGSize size = [tfList sizeThatFits:CGSizeMake(tfList.frame.size.width, INT_MAX)];
+    constraintTextHeight.constant = size.height;
+    tfList.minHeight = size.height;
+    tfList.maxHeight = 200;
+    
+    //add observer
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"UIKeyboardWillShowNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:@"UIKeyboardDidHideNotification" object:nil];
+    
+    float heightButton = csHeighButtonIphone.constant;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        btnRandomize.titleLabel.font = [UIFont systemFontOfSize:20];
+        heightButton = csHeighButtonIpad.constant;
+    }
+    
+    //border randomize button
+    btnRandomize.layer.borderWidth = 1;
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
+    btnRandomize.layer.cornerRadius = heightButton/2;
+    [btnRandomize setTitleColor:[UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f] forState:UIControlStateSelected];
+    [btnRandomize setTitleColor:[UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+    
+    //btn random events
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchCancel];
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchDragExit];
+    [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDown];
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchUpInside];
+    [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
+}
+-(void)buttonOnTouch{
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f].CGColor;
+    btnRandomize.titleLabel.alpha = 1.0f;
+}
+-(void)buttonOffTouch{
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
+}
+-(void)keyboardWillShow:(NSNotification*)note{
+    NSDictionary* dic =[note userInfo];
+    CGSize size = [[dic objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    NSLog(@"%@",NSStringFromCGSize(size));
+    int maxheight = [UIScreen mainScreen].bounds.size.height-tfList.frame.origin.y-size.height-10;
+    tfList.maxHeight = maxheight;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+}
+-(void)keyboardDidHide:(NSNotification*)note{
+    NSLog(@"Keyboard Hide");
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     NSLog(@"Touch began");
@@ -31,6 +87,7 @@ static NSString *const placeholder = @"Please input list";
     }
     NSLog(@"%@",NSStringFromCGPoint(tfList.contentOffset));
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -45,7 +102,15 @@ static NSString *const placeholder = @"Please input list";
     [self showDoneButton];
     return YES;
 }
--(void)textViewDidChange:(UITextView *)textView{
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]) {
+            NSArray* arrStr = [textView.text componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSString* lastLine = [arrStr lastObject];
+        if ([lastLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length==0) {
+            return NO;
+        }
+    }
+    return YES;
 }
 -(void)showDoneButton{
     if (!self.navigationItem.rightBarButtonItem) {
@@ -62,16 +127,22 @@ static NSString *const placeholder = @"Please input list";
         tfList.text = placeholder;
     }
 }
+-(IBAction)proceed:(id)sender{
+    if (![tfList.text isEqualToString:placeholder]) {
+        [self performSegueWithIdentifier:@"showListRandom" sender:self];
+    }
+}
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    RandomListResult* destView = segue.destinationViewController;
+    destView.listText = tfList.text;
 }
-*/
+
 - (BOOL)color:(UIColor *)color1
 isEqualToColor:(UIColor *)color2
 withTolerance:(CGFloat)tolerance {

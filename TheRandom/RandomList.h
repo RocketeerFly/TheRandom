@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AUIAutoGrowingTextView.h"
 
 @interface RandomList : UIViewController<UITextViewDelegate>{
-    IBOutlet UITextView* tfList;
+    IBOutlet AUIAutoGrowingTextView* tfList;
+    IBOutlet UIButton* btnRandomize;
+    IBOutlet NSLayoutConstraint* constraintTextHeight;
+    IBOutlet NSLayoutConstraint* csHeighButtonIphone;
+    IBOutlet NSLayoutConstraint* csHeighButtonIpad;
+    CGRect previousRect;
 }
 
 @end

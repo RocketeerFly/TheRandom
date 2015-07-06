@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RandomDice">
+            <connections>
+                <outlet property="colorPickerView" destination="iN0-l3-epB" id="D9y-Cb-q2q"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="262" height="125"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVm-my-1VX">
+                    <rect key="frame" x="48" y="3" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="nit-C9-kcJ"/>
+                        <constraint firstAttribute="width" constant="50" id="nuC-Qn-lEa"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleColor" red="0.0" green="0.63529411764705879" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="X0N-VC-Yjn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2f-eX-XbP">
+                    <rect key="frame" x="106" y="3" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.36470588235294116" green="0.75273722627737227" blue="0.35036496350364965" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="O6s-V5-vzy"/>
+                        <constraint firstAttribute="width" constant="50" id="WXy-Ob-JfE"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="sFS-1R-guk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTB-Wx-xRJ">
+                    <rect key="frame" x="164" y="3" width="50" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="5Oe-c9-onr"/>
+                        <constraint firstAttribute="width" constant="50" id="fqc-t5-hDI"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="2T8-CJ-meX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P21-hh-KH8">
+                    <rect key="frame" x="164" y="61" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.88409557481751821" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="CJB-v0-0IB"/>
+                        <constraint firstAttribute="height" constant="50" id="pm0-UF-hAw"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="8jT-zS-bof"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0r-hn-3EL">
+                    <rect key="frame" x="48" y="61" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.53555542883211682" green="0.0" blue="0.1742415602189781" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="Lig-hA-FQZ"/>
+                        <constraint firstAttribute="height" constant="50" id="Uh8-pT-2Ba"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="Zuh-Nh-i13"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sP-Kh-FaJ">
+                    <rect key="frame" x="106" y="61" width="50" height="50"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="MWf-2w-2Fb"/>
+                        <constraint firstAttribute="width" constant="50" id="azp-Ti-o8U"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseColor:" destination="-1" eventType="touchDown" id="zZF-rt-IL3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="P21-hh-KH8" secondAttribute="centerY" constant="-23" id="7zr-JT-n4e"/>
+                <constraint firstAttribute="centerY" secondItem="Q0r-hn-3EL" secondAttribute="centerY" constant="-23" id="9cv-W0-foh"/>
+                <constraint firstItem="GVm-my-1VX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="48" id="D18-TK-Yw3"/>
+                <constraint firstAttribute="trailing" secondItem="CTB-Wx-xRJ" secondAttribute="trailing" constant="48" id="Ndj-OS-qW0"/>
+                <constraint firstAttribute="centerY" secondItem="CTB-Wx-xRJ" secondAttribute="centerY" constant="35" id="OJo-Ww-uSa"/>
+                <constraint firstAttribute="centerX" secondItem="6sP-Kh-FaJ" secondAttribute="centerX" id="S2P-MC-7wJ"/>
+                <constraint firstAttribute="centerY" secondItem="6sP-Kh-FaJ" secondAttribute="centerY" constant="-23" id="e2s-3q-Hjw"/>
+                <constraint firstAttribute="centerY" secondItem="a2f-eX-XbP" secondAttribute="centerY" constant="35" id="gs8-9g-rta"/>
+                <constraint firstAttribute="trailing" secondItem="P21-hh-KH8" secondAttribute="trailing" constant="48" id="jjD-Qe-Hdd"/>
+                <constraint firstAttribute="centerX" secondItem="a2f-eX-XbP" secondAttribute="centerX" id="lgc-l9-KWz"/>
+                <constraint firstAttribute="centerY" secondItem="GVm-my-1VX" secondAttribute="centerY" constant="35" id="r8f-oo-4sV"/>
+                <constraint firstItem="Q0r-hn-3EL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="48" id="spH-lR-Bm2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="91" y="329.5"/>
+        </view>
+    </objects>
+</document>

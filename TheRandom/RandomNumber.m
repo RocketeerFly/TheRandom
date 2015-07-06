@@ -45,20 +45,74 @@ static NSString* placeholder = @"Shake or tap the button to start";
     lbResult.contentMode = UIViewContentModeCenter;
     countTimer = 0;
     isRolling = NO;
+    isHoldButtonMode = NO;
+    isIphone = YES;
     arrRecent = [[NSMutableArray alloc] init];
+    float heightButton = csHeighButtonIphone.constant;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         btnRecent.titleLabel.font = [UIFont systemFontOfSize:18];
-        btnRandomize.titleLabel.font = [UIFont systemFontOfSize:18];
+        btnRandomize.titleLabel.font = [UIFont systemFontOfSize:20];
+        heightButton = csHeighButtonIpad.constant;
+        isIphone = NO;
     }
     [btnRecent setTitle:placeholder forState:UIControlStateNormal];
     btnRecent.enabled = NO;
-//    btnRandomize.layer.borderColor = [UIColor grayColor].CGColor;
-//    btnRandomize.layer.borderWidth = 1;
-//    btnRandomize.layer.cornerRadius = 15;
+    
+    //border randomize button
+    btnRandomize.layer.borderWidth = 1;
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
+    btnRandomize.layer.cornerRadius = heightButton/2;
+    [btnRandomize setTitleColor:[UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f] forState:UIControlStateSelected];
+    [btnRandomize setTitleColor:[UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+    
+    //btn random events
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchCancel];
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchDragExit];
+    [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDown];
+    [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchUpInside];
+    [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
     
     //add reset button
     UIBarButtonItem* btnReset = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStylePlain target:self action:@selector(resetRandom)];
     self.navigationItem.rightBarButtonItem = btnReset;
+    
+    //load history input
+    NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
+    NSString* min = [userDef valueForKey:@"rand_num_min"];
+    NSString* max = [userDef valueForKey:@"rand_num_max"];
+    if (min && max) {
+        @try {
+            tfMin.text=min;
+            tfMax.text=max;
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+    }
+    //use observer to hanele when app will close
+    NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(applicationWillTerminate) name:UIApplicationWillTerminateNotification object:nil];
+}
+-(void)buttonOnTouch{
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f].CGColor;
+    btnRandomize.titleLabel.alpha = 1.0f;
+}
+-(void)buttonOffTouch{
+    btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    ;
+}
+-(void)viewDidAppear:(BOOL)animated{
+    //show banner iAds
+    if (!bannerView) {
+        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        bannerView.delegate = self;
+        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    }
 }
 -(void)resetRandom{
     if (isRolling) {
@@ -82,12 +136,28 @@ static NSString* placeholder = @"Shake or tap the button to start";
 -(IBAction)tapRandomizeButton:(id)sender{
     [self motionBegan:UIEventSubtypeMotionShake withEvent:nil];
 }
+-(IBAction)beginRandom:(id)sender{
+    [self motionBegan:UIEventSubtypeMotionShake withEvent:nil];
+    isHoldButtonMode = YES;
+}
+-(IBAction)endRandom:(id)sender{
+    //check stop
+    float time = INTERVAL_TICK*countTimer;
+    float maxTime = (float)TIME_RANDOM;
+    
+    //stop if over max time
+    if(time>=maxTime){
+        //stop
+        [self stopRandom];
+        return;
+    }else{
+        isHoldButtonMode = NO;
+        NSLog(@"isHolding=NO");
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
--(void)viewWillAppear:(BOOL)animated{
-   
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if ([tfMin isFirstResponder]) {
@@ -96,6 +166,9 @@ static NSString* placeholder = @"Shake or tap the button to start";
         if ([tfMax isFirstResponder]) {
             [tfMax resignFirstResponder];
         }else{
+            if (isRolling) {
+                return;
+            }
             //check touch inside result to copy
             UITouch* touch = [touches anyObject];
             CGRect frame = lbResult.frame;
@@ -151,14 +224,18 @@ static NSString* placeholder = @"Shake or tap the button to start";
     //check stop
     float time = INTERVAL_TICK*countTimer;
     float maxTime = (float)TIME_RANDOM;
-    if(time>=maxTime){
+    
+    //stop if over max time
+    if(time>=maxTime && !isHoldButtonMode){
         //stop
         [self stopRandom];
+        NSLog(@"stop at: %f and max:%f and count:%d",time,maxTime,countTimer);
         return;
     }
     countTimer++;
     lbResult.text = [NSString stringWithFormat:@"%ld",(long)[self generateRandomNumber]];
     //[lbResult sizeToFit];
+    NSLog(@"%@",lbResult.text);
     
     while (true) {
         int randomColorIndex = rand()%arrColor.count;
@@ -201,6 +278,11 @@ static NSString* placeholder = @"Shake or tap the button to start";
     }
     int distance = max-min+1;
     int result = min + rand()%distance;
+    
+    //save min,max
+    minInput = min;
+    maxInput = max;
+    
     return result;
 }
 -(BOOL)isNumeric:(NSString*)inputString{
@@ -247,6 +329,7 @@ static NSString* placeholder = @"Shake or tap the button to start";
         [arrRecent addObject:lbResult.text];
         [self updateRecent];
         isRolling  = NO;
+        isHoldButtonMode = NO;
     }
 }
 -(void)updateRecent{
@@ -270,6 +353,72 @@ static NSString* placeholder = @"Shake or tap the button to start";
     RecentNumberRandom* detailView = segue.destinationViewController;
     detailView.arrRecents = arrRecent;
     detailView.delegate = self;
+}
+-(void)willMoveToParentViewController:(UIViewController *)parent{
+    if (!parent) {
+        [self saveUserInput];
+    }
+}
+-(void)applicationWillTerminate{
+    [self saveUserInput];
+}
+-(void)saveUserInput{
+    //save user
+    if (minInput>0 || maxInput>0) {
+        NSUserDefaults* userdef = [NSUserDefaults standardUserDefaults];
+        [userdef setValue:[NSString stringWithFormat:@"%d",minInput] forKey:@"rand_num_min"];
+        [userdef setValue:[NSString stringWithFormat:@"%d",maxInput] forKey:@"rand_num_max"];
+        [userdef synchronize];
+    }
+
+}
+
+//iAds delegates
+-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
+    NSLog(@"Fail to receive Ad");
+    if (isBannerIsVisible) {
+        [UIView animateWithDuration:0.2f animations:^{
+            bannerView.frame = CGRectOffset(bannerView.frame, 0, bannerView.frame.size.height);
+        }];
+        isBannerIsVisible = NO;
+    }
+}
+-(void)bannerViewActionDidFinish:(ADBannerView *)banner{
+    NSLog(@"Resume");
+}
+-(void)bannerViewDidLoadAd:(ADBannerView *)banner{
+    if (!isBannerIsVisible) {
+        if (!bannerView.superview) {
+            CGRect rect = bannerView.frame;
+            NSLog(@"%@",NSStringFromCGRect(rect));
+            rect.origin.x = 0;
+            rect.origin.y = self.view.frame.size.height;
+            bannerView.frame = rect;
+            [self.view addSubview:bannerView];
+            
+            //add new constraint for recent buttons at botoom
+            
+        }
+        [UIView animateWithDuration:0.2f animations:^{
+            bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
+            if (isIphone) {
+                csButtonRecentBottomIphone.constant+=bannerView.frame.size.height*0.7;
+            }else{
+                csButtonRecentBottomIpad.constant+=bannerView.frame.size.height*0.4;
+            }
+            
+        }];
+        isBannerIsVisible = YES;
+        [self.view layoutIfNeeded];
+        NSLog(@"Show iAds");
+    }
+}
+-(void)bannerViewWillLoadAd:(ADBannerView *)banner{
+    
+}
+-(BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
+    NSLog(@"Leave");
+    return YES;
 }
 
 /*
