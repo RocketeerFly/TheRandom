@@ -33,7 +33,6 @@
     tvList.tableFooterView = [UIView new];
 }
 -(void)randomAgain{
-    NSLog(@"Random again!");
     [self shuffleArray];
     NSInteger count = [arrList count];
     [tvList beginUpdates];
@@ -54,7 +53,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",indexPath.row+1,[arrList objectAtIndex:indexPath.row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",(int)indexPath.row+1,[arrList objectAtIndex:indexPath.row]];
     return cell;
 }
 
@@ -65,7 +64,7 @@
     return 1;
 }
 -(void)shuffleArray{
-    int count = [arrList count];
+    int count = (int)[arrList count];
     for (int i=0; i<count; i++) {
         int right = count-i;
         int rand = arc4random()%right + i;

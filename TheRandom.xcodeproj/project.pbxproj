@@ -10,13 +10,13 @@
 		8B1BFF971B1CC5220061DB27 /* RandomCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1BFF961B1CC5220061DB27 /* RandomCard.m */; };
 		8B1BFF9C1B1CC5580061DB27 /* RandomDice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1BFF991B1CC5580061DB27 /* RandomDice.m */; };
 		8B1BFF9D1B1CC5580061DB27 /* RandomList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1BFF9B1B1CC5580061DB27 /* RandomList.m */; };
-		8B3A80DD1B458BF900125AEC /* roll_dice.caf in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A80DC1B4585C900125AEC /* roll_dice.caf */; };
 		8B3A80DE1B458C2700125AEC /* roll_dice.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8B3A80DC1B4585C900125AEC /* roll_dice.caf */; };
 		8B619FCD1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B619FCC1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m */; };
 		8B65C7EF1B47DAB400B579D4 /* ColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B65C7EE1B47DAB400B579D4 /* ColorPicker.xib */; };
 		8B7D9E841B2BDF7B001AF02B /* RandomListResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D9E831B2BDF7B001AF02B /* RandomListResult.m */; };
 		8B86499E1B22AF0200A77EFD /* RecentNumberRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86499D1B22AF0200A77EFD /* RecentNumberRandom.m */; };
 		8BC7A6941B463568001CF3B7 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BC7A6931B463568001CF3B7 /* iAd.framework */; };
+		8BD25D081B4BD90500360128 /* RecentDice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD25D071B4BD90500360128 /* RecentDice.m */; };
 		8BD67E1C1B1CBF4300DA1E9B /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD67E1B1B1CBF4300DA1E9B /* RandomNumber.m */; };
 		8BFABC8C1B15852900050C3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABC8B1B15852900050C3E /* main.m */; };
 		8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABC8E1B15852900050C3E /* AppDelegate.m */; };
@@ -53,6 +53,8 @@
 		8B86499C1B22AF0200A77EFD /* RecentNumberRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentNumberRandom.h; sourceTree = "<group>"; };
 		8B86499D1B22AF0200A77EFD /* RecentNumberRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentNumberRandom.m; sourceTree = "<group>"; };
 		8BC7A6931B463568001CF3B7 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		8BD25D061B4BD90500360128 /* RecentDice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentDice.h; sourceTree = "<group>"; };
+		8BD25D071B4BD90500360128 /* RecentDice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentDice.m; sourceTree = "<group>"; };
 		8BD67E1A1B1CBF4300DA1E9B /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomNumber.h; sourceTree = "<group>"; };
 		8BD67E1B1B1CBF4300DA1E9B /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomNumber.m; sourceTree = "<group>"; };
 		8BFABC861B15852900050C3E /* TheRandom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheRandom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,8 @@
 		8BFABC881B15852900050C3E /* TheRandom */ = {
 			isa = PBXGroup;
 			children = (
+				8BD25D061B4BD90500360128 /* RecentDice.h */,
+				8BD25D071B4BD90500360128 /* RecentDice.m */,
 				8B7D9E821B2BDF7B001AF02B /* RandomListResult.h */,
 				8B7D9E831B2BDF7B001AF02B /* RandomListResult.m */,
 				8B619FCB1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.h */,
@@ -268,11 +272,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B3A80DD1B458BF900125AEC /* roll_dice.caf in Sources */,
 				8BFABC921B15852900050C3E /* ViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,
 				8B86499E1B22AF0200A77EFD /* RecentNumberRandom.m in Sources */,
 				8B619FCD1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m in Sources */,
+				8BD25D081B4BD90500360128 /* RecentDice.m in Sources */,
 				8BFABC8C1B15852900050C3E /* main.m in Sources */,
 				8B1BFF9C1B1CC5580061DB27 /* RandomDice.m in Sources */,
 				8B1BFF9D1B1CC5580061DB27 /* RandomList.m in Sources */,
@@ -337,7 +341,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Thi Vo (4P9377FEHH)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -379,7 +383,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Thi Vo (4P9377FEHH)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -402,14 +406,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheRandom/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a1caa0d7-d2a5-4fba-abd3-ec86c12d47ae";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -417,14 +422,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheRandom/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a1caa0d7-d2a5-4fba-abd3-ec86c12d47ae";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

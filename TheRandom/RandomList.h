@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "AUIAutoGrowingTextView.h"
+#import <iAd/iAd.h>
 
-@interface RandomList : UIViewController<UITextViewDelegate>{
+@interface RandomList : UIViewController<UITextViewDelegate,ADBannerViewDelegate>{
     IBOutlet AUIAutoGrowingTextView* tfList;
     IBOutlet UIButton* btnRandomize;
     IBOutlet NSLayoutConstraint* constraintTextHeight;
     IBOutlet NSLayoutConstraint* csHeighButtonIphone;
     IBOutlet NSLayoutConstraint* csHeighButtonIpad;
+    IBOutlet UILabel* lbTip;
     CGRect previousRect;
+    
+    ADBannerView* bannerView;
+    bool isBannerIsVisible;
 }
 
 @end

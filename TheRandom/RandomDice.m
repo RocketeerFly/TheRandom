@@ -7,6 +7,7 @@
 //
 
 #import "RandomDice.h"
+#import "RecentDice.h"
 
 @interface RandomDice ()
 
@@ -27,10 +28,12 @@
 #define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define colorTintButton [UIColor grayColor]
 #define colorSelectedButton [UIColor colorWithRed:14/255.0f green:121/255.0f blue:255/255.0f alpha:1.0f]
-#define TIP_MESSAGE @"Select number of dices and then touch the screen \n or shake your %@"
-#define TIP_MESSAGE_FIRST @"Touch the screen or shake your %@ to roll"
+#define TIP_MESSAGE_FIRST @"Please select number of dices \nand then touch the screen or shake your %@"
+#define TIP_MESSAGE @"Touch the screen \nor shake your %@ to roll"
 
 @implementation RandomDice
+
+@synthesize arrDiceColor;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +41,7 @@
     // Do any additional setup after loading the view.
     arrDices = [[NSMutableArray alloc] init];
     arrPosDices = [[NSMutableArray alloc] init];
+    arrDiceRolled = [[NSMutableArray alloc] init];
     
     //Dice Colors
     arrDiceColor = [NSArray arrayWithObjects:
@@ -49,7 +53,10 @@
                     [UIColor colorWithRed:255/255.0f green:102/255.0f blue:255/255.0f alpha:1.0f],nil];
     
     
-    UIBarButtonItem* btnRecent = [[UIBarButtonItem alloc] initWithTitle:@"Recent" style:UIBarButtonItemStyleBordered target:self action:@selector(showRecent)];
+    //load user's data
+    NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
+    
+    UIBarButtonItem* btnRecent = [[UIBarButtonItem alloc] initWithTitle:@"Recent" style:UIBarButtonItemStyleBordered target:self action:@selector(showRecent:)];
     self.navigationItem.rightBarButtonItem = btnRecent;
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float heightButton = csHeighButtonIphone.constant;
@@ -57,8 +64,24 @@
     float extractWidth = 2;
     float cornerRadiusBtnColor = 22.5f;
     isLoadedAccessoryAlert = NO;
+    isRolled = NO;
     //calculate size of dice
     diceSize = (screenSize.width/100.0)*10*2.5;
+    
+    //set tip message
+    if ([userDef valueForKey:@"rand_dice_first"]) {
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            lbTip.text = [NSString stringWithFormat:TIP_MESSAGE,@"iPad"];
+        }else{
+            lbTip.text = [NSString stringWithFormat:TIP_MESSAGE,@"phone"];
+        }
+    }else{
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            lbTip.text = [NSString stringWithFormat:TIP_MESSAGE_FIRST,@"iPad"];
+        }else{
+            lbTip.text = [NSString stringWithFormat:TIP_MESSAGE_FIRST,@"phone"];
+        }
+    }
     
     //change size of lable for Ipad device
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
@@ -66,6 +89,7 @@
         btn2.titleLabel.font = [UIFont systemFontOfSize:20];
         btn3.titleLabel.font = [UIFont systemFontOfSize:20];
         lbNumDices.font = [UIFont systemFontOfSize:20];
+        lbTip.font = [UIFont systemFontOfSize:20];
         heightBtnNumber = csHeighNumberButtonIpad.constant;
          heightButton = csHeighButtonIpad.constant;
         diceSize = DICE_SIZE_IPAD;
@@ -131,7 +155,6 @@
     
     //load the last selected num dice
     numDice = 3;
-    NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
     NSString* numD = [userDef valueForKey:@"rand_dice_num"];
     if (numD) {
         numDice = numD.intValue;
@@ -155,14 +178,24 @@
     isPlaySound = !isPlaySound;
     [self changeSound:nil];
     btnSound.imageEdgeInsets = UIEdgeInsetsMake(BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET);
+    btnColor.imageEdgeInsets = UIEdgeInsetsMake(BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET);
     
     //dice's color default
     NSString* colorIndexSaved = [userDef valueForKey:@"rand_dice_color"];
     colorDiceIndex = 0;
-    if (colorDiceIndex) {
+    if (colorIndexSaved) {
         colorDiceIndex = colorIndexSaved.intValue;
     }
     diceColor = [arrDiceColor objectAtIndex:colorDiceIndex];
+    for (UIView* view in self.colorPickerView.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton* btn = (UIButton*)view;
+            if (btn.tag == colorDiceIndex+1) {
+                btn.layer.borderColor = [UIColor yellowColor].CGColor;
+                btn.layer.borderWidth = 4;
+            }
+        }
+    }
     
     //use observer to hanele when app will close
     NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
@@ -178,12 +211,13 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
+    if (!bannerView) {
+        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        bannerView.delegate = self;
+        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    }
 }
 
--(void)showRecent{
-    
-}
 -(IBAction)chooseNumDices:(id)sender{
     if (sender) {
         UIButton* btn = (UIButton*)sender;
@@ -221,6 +255,8 @@
     maxLengthMove = hypot(pointPlaceDice.x-diceArea.origin.x, pointPlaceDice.y-diceArea.origin.y);
 }
 -(IBAction)rollDices:(id)sender{
+    //hide tips
+    lbTip.hidden = YES;
     [self clearDices];
     [self makeSomeNewDice:numDice];
 }
@@ -251,7 +287,6 @@
     }
 }
 -(void)chooseDices:(int)numDices{
-    NSLog(@"Select %d dices!",numDices);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -272,6 +307,7 @@
     return nil;
 }
 -(void)makeSomeNewDice:(int)amount{
+    NSString* storeData = [NSString stringWithFormat:@"%d",colorDiceIndex];
     for (int i =0; i<amount; i++) {
         CALayer* layer = [CALayer layer];
         layer.frame = CGRectMake(pointPlaceDice.x, pointPlaceDice.y, diceSize, diceSize);
@@ -285,6 +321,7 @@
         //random
         int diceValue = 1 + arc4random()%5;
         layer.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"dice_%d.png",diceValue]].CGImage;
+        storeData = [storeData stringByAppendingString:[NSString stringWithFormat:@",%d",diceValue]];
         
         //attach to parent layer
         [self.view.layer addSublayer:layer];
@@ -353,10 +390,14 @@
         [arrDices addObject:layer];
     }
     
+    //save to recent
+    [arrDiceRolled addObject:storeData];
+    
     //play sound
     if (isPlaySound) {
         AudioServicesPlaySystemSound(sound1);
     }
+    isRolled = YES;
 }
 -(void)clearDices{
     //clear old dices
@@ -381,12 +422,17 @@
     [userDef setValue:[NSString stringWithFormat:@"%d",numDice] forKey:@"rand_dice_num"];
     [userDef setValue:[NSString stringWithFormat:@"%d",isPlaySound==YES?1:0] forKey:@"rand_dice_sound"];
     [userDef setValue:[NSString stringWithFormat:@"%d",colorDiceIndex] forKey:@"rand_dice_color"];
+    if (isRolled) {
+        if (![userDef valueForKey:@"rand_dice_first"]) {
+            [userDef setValue:@"1" forKey:@"rand_dice_first"];
+        }
+    }
     [userDef synchronize];
 }
 
 -(IBAction)showChooseColor:(id)sender{
     if (!colorPicker) {
-        colorPicker = [[UIAlertView alloc] initWithTitle:@"Choose color" message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        colorPicker = [[UIAlertView alloc] initWithTitle:@"Pick a color" message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
         if (!IS_OS_8_OR_LATER) { //ios7
             [colorPicker setValue:self.colorPickerView forKey:@"accessoryView"];
         }
@@ -396,14 +442,10 @@
 -(void)willPresentAlertView:(UIAlertView *)alertView{
     if (IS_OS_8_OR_LATER && !isLoadedAccessoryAlert) {//ios 8
         [alertView setValue:self.colorPickerView forKey:@"accessoryView"];
-//        UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
-//        view.backgroundColor = [UIColor grayColor];
-//        [alertView setValue:view forKey:@"accessoryView"];
         isLoadedAccessoryAlert = YES;
     }
 }
 -(IBAction)chooseColor:(id)sender{
-    NSLog(@"ChooseColor");
     UIButton* oldColorBtn = (UIButton*)[self.colorPickerView viewWithTag:colorDiceIndex+1];
     oldColorBtn.layer.borderWidth = 0;
     UIButton* newColorBtn = (UIButton*)sender;
@@ -416,10 +458,50 @@
     diceColor = [arrDiceColor objectAtIndex:colorDiceIndex];
     for (CALayer* layerDice in self.view.layer.sublayers) {
         if ([layerDice.name isEqualToString:@"dice"]) {
-            NSLog(@"Dice");
             layerDice.backgroundColor = diceColor.CGColor;
         }
     }
+}
+//banner delegates
+-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
+
+}
+-(void)bannerViewActionDidFinish:(ADBannerView *)banner{
+    
+}
+-(void)bannerViewDidLoadAd:(ADBannerView *)banner{
+    if (!isBannerIsVisible) {
+        if (!bannerView.superview) {
+            CGRect rect = bannerView.frame;
+            rect.origin.x = 0;
+            rect.origin.y = self.view.frame.size.height;
+            bannerView.frame = rect;
+            [self.view addSubview:bannerView];
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
+            }];
+        }
+        isBannerIsVisible = YES;
+    }
+}
+-(void)bannerViewWillLoadAd:(ADBannerView *)banner{
+    
+}
+
+//show recent
+-(IBAction)showRecent:(id)sender{
+    if (arrDiceRolled.count>1) {
+        [self performSegueWithIdentifier:@"showDiceRecent" sender:self];
+    }
+}
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    RecentDice* detailView = segue.destinationViewController;
+    detailView.arrRecents = arrDiceRolled;
+    detailView.delegate = self;
+}
+-(void)clearRecent{
+    [arrDiceRolled removeAllObjects];
 }
 /*
 #pragma mark - Navigation

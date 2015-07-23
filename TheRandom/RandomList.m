@@ -25,6 +25,7 @@ static NSString *const placeholder = @"Please input list";
         tfList.font = [UIFont systemFontOfSize:20];
         btnRandomize.titleLabel.font = [UIFont systemFontOfSize:20];
         radius = 14;
+        lbTip.font = [UIFont systemFontOfSize:18];
     }
     
     tfList.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -62,6 +63,13 @@ static NSString *const placeholder = @"Please input list";
     [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchUpInside];
     [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    if (!bannerView) {
+        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        bannerView.delegate = self;
+        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    }
+}
 -(void)buttonOnTouch{
     btnRandomize.layer.borderColor = [UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f].CGColor;
     btnRandomize.titleLabel.alpha = 1.0f;
@@ -72,20 +80,16 @@ static NSString *const placeholder = @"Please input list";
 -(void)keyboardWillShow:(NSNotification*)note{
     NSDictionary* dic =[note userInfo];
     CGSize size = [[dic objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    NSLog(@"%@",NSStringFromCGSize(size));
     int maxheight = [UIScreen mainScreen].bounds.size.height-tfList.frame.origin.y-size.height-10;
     tfList.maxHeight = maxheight;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
 -(void)keyboardDidHide:(NSNotification*)note{
-    NSLog(@"Keyboard Hide");
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"Touch began");
     if ([tfList isFirstResponder]) {
         [self hideDoneButton];
     }
-    NSLog(@"%@",NSStringFromCGPoint(tfList.contentOffset));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,11 +98,10 @@ static NSString *const placeholder = @"Please input list";
 }
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     [tfList setContentOffset:CGPointZero];
-    if ([self color:textView.textColor isEqualToColor:[UIColor lightGrayColor] withTolerance:0]) {
+    if ([self color:textView.textColor isEqualToColor:[UIColor lightGrayColor] withTolerance:0.1f]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor];
     }
-    NSLog(@"Begin edit");
     [self showDoneButton];
     return YES;
 }
@@ -131,6 +134,34 @@ static NSString *const placeholder = @"Please input list";
     if (![tfList.text isEqualToString:placeholder]) {
         [self performSegueWithIdentifier:@"showListRandom" sender:self];
     }
+}
+
+//banner delegates
+-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
+    
+}
+-(void)bannerViewActionDidFinish:(ADBannerView *)banner{
+    
+}
+-(void)bannerViewDidLoadAd:(ADBannerView *)banner{
+    if (!isBannerIsVisible) {
+        if (!bannerView.superview) {
+            CGRect rect = bannerView.frame;
+            rect.origin.x = 0;
+            rect.origin.y = self.view.frame.size.height;
+            bannerView.frame = rect;
+            [self.view addSubview:bannerView];
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
+            }];
+            
+        }
+        isBannerIsVisible = YES;
+    }
+}
+-(void)bannerViewWillLoadAd:(ADBannerView *)banner{
+    
 }
 
 #pragma mark - Navigation

@@ -18,7 +18,7 @@
 
 @implementation RandomNumber
 
-static NSString* placeholder = @"Shake or tap the button to start";
+static NSString* placeholder = @"Press and release button or shake to start";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +54,17 @@ static NSString* placeholder = @"Shake or tap the button to start";
         btnRandomize.titleLabel.font = [UIFont systemFontOfSize:20];
         heightButton = csHeighButtonIpad.constant;
         isIphone = NO;
+    }else{
+        //iphone 6+
+        int height = [UIScreen mainScreen].bounds.size.height;
+        if (height==736.0f) {
+            tfMin.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            tfMin.layer.borderWidth = 1.0f;
+            tfMin.layer.cornerRadius = 8;
+            tfMax.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            tfMax.layer.borderWidth = 1.0f;
+            tfMax.layer.cornerRadius = 8;
+        }
     }
     [btnRecent setTitle:placeholder forState:UIControlStateNormal];
     btnRecent.enabled = NO;
@@ -118,7 +129,6 @@ static NSString* placeholder = @"Shake or tap the button to start";
     if (isRolling) {
         return;
     }
-    NSLog(@"Reset");
     tfMax.text=@"";
     tfMin.text=@"";
     lbResult.text=@"?";
@@ -152,7 +162,6 @@ static NSString* placeholder = @"Shake or tap the button to start";
         return;
     }else{
         isHoldButtonMode = NO;
-        NSLog(@"isHolding=NO");
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -229,13 +238,11 @@ static NSString* placeholder = @"Shake or tap the button to start";
     if(time>=maxTime && !isHoldButtonMode){
         //stop
         [self stopRandom];
-        NSLog(@"stop at: %f and max:%f and count:%d",time,maxTime,countTimer);
         return;
     }
     countTimer++;
     lbResult.text = [NSString stringWithFormat:@"%ld",(long)[self generateRandomNumber]];
     //[lbResult sizeToFit];
-    NSLog(@"%@",lbResult.text);
     
     while (true) {
         int randomColorIndex = rand()%arrColor.count;
@@ -366,8 +373,8 @@ static NSString* placeholder = @"Shake or tap the button to start";
     //save user
     if (minInput>0 || maxInput>0) {
         NSUserDefaults* userdef = [NSUserDefaults standardUserDefaults];
-        [userdef setValue:[NSString stringWithFormat:@"%d",minInput] forKey:@"rand_num_min"];
-        [userdef setValue:[NSString stringWithFormat:@"%d",maxInput] forKey:@"rand_num_max"];
+        [userdef setValue:[NSString stringWithFormat:@"%ld",(long)minInput] forKey:@"rand_num_min"];
+        [userdef setValue:[NSString stringWithFormat:@"%ld",(long)maxInput] forKey:@"rand_num_max"];
         [userdef synchronize];
     }
 
@@ -375,22 +382,13 @@ static NSString* placeholder = @"Shake or tap the button to start";
 
 //iAds delegates
 -(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-    NSLog(@"Fail to receive Ad");
-    if (isBannerIsVisible) {
-        [UIView animateWithDuration:0.2f animations:^{
-            bannerView.frame = CGRectOffset(bannerView.frame, 0, bannerView.frame.size.height);
-        }];
-        isBannerIsVisible = NO;
-    }
 }
 -(void)bannerViewActionDidFinish:(ADBannerView *)banner{
-    NSLog(@"Resume");
 }
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner{
     if (!isBannerIsVisible) {
         if (!bannerView.superview) {
             CGRect rect = bannerView.frame;
-            NSLog(@"%@",NSStringFromCGRect(rect));
             rect.origin.x = 0;
             rect.origin.y = self.view.frame.size.height;
             bannerView.frame = rect;
@@ -410,14 +408,12 @@ static NSString* placeholder = @"Shake or tap the button to start";
         }];
         isBannerIsVisible = YES;
         [self.view layoutIfNeeded];
-        NSLog(@"Show iAds");
     }
 }
 -(void)bannerViewWillLoadAd:(ADBannerView *)banner{
     
 }
 -(BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
-    NSLog(@"Leave");
     return YES;
 }
 

@@ -21,6 +21,7 @@
     // Do any additional setup after loading the view.
     UIBarButtonItem* btnClear = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearRecent)];
     self.navigationItem.rightBarButtonItem = btnClear;
+    tbv.tableFooterView = [UIView new];
 }
 -(void)clearRecent{
     if (arrRecents) {

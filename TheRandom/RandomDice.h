@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <iAd/iAd.h>
 
-@interface RandomDice : UIViewController<UIAlertViewDelegate>{
+@interface RandomDice : UIViewController<UIAlertViewDelegate,ADBannerViewDelegate>{
     IBOutlet UIButton* btn1;
     IBOutlet UIButton* btn2;
     IBOutlet UIButton* btn3;
@@ -25,6 +26,7 @@
     NSMutableArray* arrDices;
     NSMutableArray* arrPosDices;
     NSArray* arrDiceColor;
+    NSMutableArray* arrDiceRolled;
     int numDice;
     int diceSize;
     int maxLengthMove;
@@ -35,8 +37,12 @@
     SystemSoundID sound1;
     bool isPlaySound;
     bool isLoadedAccessoryAlert;
+    bool isRolled;
     UIAlertView* colorPicker;
+    ADBannerView* bannerView;
+    bool isBannerIsVisible;
 }
 @property (strong, nonatomic) IBOutlet UIView *colorPickerView;
+@property (strong, nonatomic) NSArray* arrDiceColor;
 
 @end
