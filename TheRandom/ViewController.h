@@ -36,6 +36,7 @@
     NSArray* listButton;
     NSInteger currentSelect;
     bool isSelected;
+    bool isLoaded;
 }
 
 @end

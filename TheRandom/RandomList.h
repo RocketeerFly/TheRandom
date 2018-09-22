@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AUIAutoGrowingTextView.h"
-#import <iAd/iAd.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface RandomList : UIViewController<UITextViewDelegate,ADBannerViewDelegate>{
+@interface RandomList : UIViewController<UITextViewDelegate,GADBannerViewDelegate>{
     IBOutlet AUIAutoGrowingTextView* tfList;
     IBOutlet UIButton* btnRandomize;
     IBOutlet NSLayoutConstraint* constraintTextHeight;
@@ -19,7 +19,7 @@
     IBOutlet UILabel* lbTip;
     CGRect previousRect;
     
-    ADBannerView* bannerView;
+    GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
 }
 

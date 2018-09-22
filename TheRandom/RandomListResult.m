@@ -29,6 +29,13 @@
     if (lastString.length == 0) {
         [arrList removeLastObject];
     }
+
+    for (int i=0;i<arrList.count;i++) {
+        NSString* item = [arrList objectAtIndex:i];
+        if ([item isEqualToString:@""]) {
+            [arrList removeObjectAtIndex:i];
+        }
+    }
     [self shuffleArray];
     tvList.tableFooterView = [UIView new];
 }

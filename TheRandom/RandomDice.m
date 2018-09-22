@@ -89,7 +89,7 @@
         btn2.titleLabel.font = [UIFont systemFontOfSize:20];
         btn3.titleLabel.font = [UIFont systemFontOfSize:20];
         lbNumDices.font = [UIFont systemFontOfSize:20];
-        lbTip.font = [UIFont systemFontOfSize:20];
+        lbTip.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTip.font.fontName] size:20];
         heightBtnNumber = csHeighNumberButtonIpad.constant;
          heightButton = csHeighButtonIpad.constant;
         diceSize = DICE_SIZE_IPAD;
@@ -211,10 +211,23 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    if (!bannerView) {
-        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        bannerView.delegate = self;
-        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (!bannerAdmobView) {
+        CGPoint orgin = CGPointMake(0.0,
+                                    self.view.frame.size.height -
+                                    CGSizeFromGADAdSize(
+                                                        kGADAdSizeSmartBannerPortrait).height);
+        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
+        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
+        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
+        bannerAdmobView.rootViewController = self;
+        bannerAdmobView.delegate = self;
+        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
+        
+        [self.view addSubview:bannerAdmobView];
+        
+        GADRequest* request = [[GADRequest alloc] init];
+        [bannerAdmobView loadRequest:request];
     }
 }
 
@@ -319,7 +332,7 @@
         layer.shadowRadius = diceSize/20;
         [layer setName:@"dice"];
         //random
-        int diceValue = 1 + arc4random()%5;
+        int diceValue = 1 + arc4random()%6;
         layer.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"dice_%d.png",diceValue]].CGImage;
         storeData = [storeData stringByAppendingString:[NSString stringWithFormat:@",%d",diceValue]];
         
@@ -354,7 +367,7 @@
                 NSValue* value = [arrPosDices objectAtIndex:i];
                 CGPoint p1 = value.CGPointValue;
                 float distance =sqrt(pow(p.x-p1.x, 2.0) + pow(p.y-p1.y, 2.0));
-                if (distance >= diceSize) {
+                if (distance >= diceSize*1.2) {
                     count++;
                 }
             }
@@ -461,32 +474,6 @@
             layerDice.backgroundColor = diceColor.CGColor;
         }
     }
-}
-//banner delegates
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-
-}
--(void)bannerViewActionDidFinish:(ADBannerView *)banner{
-    
-}
--(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    if (!isBannerIsVisible) {
-        if (!bannerView.superview) {
-            CGRect rect = bannerView.frame;
-            rect.origin.x = 0;
-            rect.origin.y = self.view.frame.size.height;
-            bannerView.frame = rect;
-            [self.view addSubview:bannerView];
-            
-            [UIView animateWithDuration:0.2f animations:^{
-                bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
-            }];
-        }
-        isBannerIsVisible = YES;
-    }
-}
--(void)bannerViewWillLoadAd:(ADBannerView *)banner{
-    
 }
 
 //show recent

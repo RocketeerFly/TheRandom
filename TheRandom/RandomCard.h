@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface RandomCard : UIViewController<ADBannerViewDelegate>{
+@interface RandomCard : UIViewController<GADBannerViewDelegate>{
     
     IBOutlet UIImageView *ivCardTop;
     IBOutlet UIImageView *ivCardBottom;
     IBOutlet UIScrollView *svCardOpened;
     IBOutlet UILabel* lbNumCard;
+    IBOutlet UILabel *lbTip;
     NSMutableArray* arrCarOpened;
     CGPoint startPoint;
     int cardThumbSize;
@@ -24,7 +25,7 @@
     CGSize sizeListAtInit;
     UIImage* imgCarBack;
     
-    ADBannerView* bannerView;
+    GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
 }
 

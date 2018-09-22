@@ -60,6 +60,13 @@
         }
         [svCardOpened setContentSize:sizeListAtInit];
         [arrCarOpened removeAllObjects];
+        
+        if (isOpenedCard) {
+            //Change image top card
+            ivCardTop.image = [UIImage imageNamed:@"card_back_1.png"];
+            isOpenedCard = NO;
+        }
+        
         [self updateNumCardLabel];
     }
 }
@@ -68,10 +75,23 @@
     
 }
 -(void)viewDidAppear:(BOOL)animated{
-    if (!bannerView) {
-        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        bannerView.delegate = self;
-        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (!bannerAdmobView) {
+        CGPoint orgin = CGPointMake(0.0,
+                                    self.view.frame.size.height -
+                                    CGSizeFromGADAdSize(
+                                                        kGADAdSizeSmartBannerPortrait).height);
+        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
+        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
+        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
+        bannerAdmobView.rootViewController = self;
+        bannerAdmobView.delegate = self;
+        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
+        
+        [self.view addSubview:bannerAdmobView];
+        
+        GADRequest* request = [[GADRequest alloc] init];
+        [bannerAdmobView loadRequest:request];
     }
     [svCardOpened setContentSize:CGSizeMake(svCardOpened.frame.size.width, svCardOpened.frame.size.height)];
     sizeListAtInit = svCardOpened.contentSize;
@@ -93,6 +113,10 @@
     [svCardOpened setScrollEnabled:YES];
 }
 -(void)selectCard{
+    if (!lbTip.isHidden) {
+        [lbTip setHidden:YES];
+        [lbTip removeFromSuperview];
+    }
     if (arrCarOpened.count>=52 || isOpenedCard || isOpeningCard) {
         //no card anymore
         if (arrCarOpened.count>=52 && !isOpenedCard) {
@@ -181,39 +205,6 @@
 }
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
 
-}
-//banner delegates
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-//    if (isBannerIsVisible) {
-//        [UIView animateWithDuration:0.2f animations:^{
-//            banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
-//        }];
-//        isBannerIsVisible = NO;
-//        NSLog(@"Hide iAds");
-//    }
-}
--(void)bannerViewActionDidFinish:(ADBannerView *)banner{
-    
-}
--(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    if (!isBannerIsVisible) {
-        if (!bannerView.superview) {
-            CGRect rect = bannerView.frame;
-            rect.origin.x = 0;
-            rect.origin.y = self.view.frame.size.height;
-            bannerView.frame = rect;
-            [self.view addSubview:bannerView];
-            
-            [UIView animateWithDuration:0.2f animations:^{
-                bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
-            }];
-            
-        }
-        isBannerIsVisible = YES;
-    }
-}
--(void)bannerViewWillLoadAd:(ADBannerView *)banner{
-    
 }
 /*
 #pragma mark - Navigation

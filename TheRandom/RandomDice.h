@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <iAd/iAd.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface RandomDice : UIViewController<UIAlertViewDelegate,ADBannerViewDelegate>{
+@interface RandomDice : UIViewController<UIAlertViewDelegate,GADBannerViewDelegate>{
     IBOutlet UIButton* btn1;
     IBOutlet UIButton* btn2;
     IBOutlet UIButton* btn3;
@@ -39,7 +39,7 @@
     bool isLoadedAccessoryAlert;
     bool isRolled;
     UIAlertView* colorPicker;
-    ADBannerView* bannerView;
+    GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
 }
 @property (strong, nonatomic) IBOutlet UIView *colorPickerView;

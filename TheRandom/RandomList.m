@@ -14,7 +14,7 @@
 
 @implementation RandomList
 
-static NSString *const placeholder = @"Please input list";
+static NSString *const placeholder = @"Please enter items, each on a separate line. It can be numbers, names, etc";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,10 +64,23 @@ static NSString *const placeholder = @"Please input list";
     [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    if (!bannerView) {
-        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        bannerView.delegate = self;
-        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (!bannerAdmobView) {
+        CGPoint orgin = CGPointMake(0.0,
+                                    self.view.frame.size.height -
+                                    CGSizeFromGADAdSize(
+                                                        kGADAdSizeSmartBannerPortrait).height);
+        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
+        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
+        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
+        bannerAdmobView.rootViewController = self;
+        bannerAdmobView.delegate = self;
+        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
+        
+        [self.view addSubview:bannerAdmobView];
+        
+        GADRequest* request = [[GADRequest alloc] init];
+        [bannerAdmobView loadRequest:request];
     }
 }
 -(void)buttonOnTouch{
@@ -134,34 +147,6 @@ static NSString *const placeholder = @"Please input list";
     if (![tfList.text isEqualToString:placeholder]) {
         [self performSegueWithIdentifier:@"showListRandom" sender:self];
     }
-}
-
-//banner delegates
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-    
-}
--(void)bannerViewActionDidFinish:(ADBannerView *)banner{
-    
-}
--(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    if (!isBannerIsVisible) {
-        if (!bannerView.superview) {
-            CGRect rect = bannerView.frame;
-            rect.origin.x = 0;
-            rect.origin.y = self.view.frame.size.height;
-            bannerView.frame = rect;
-            [self.view addSubview:bannerView];
-            
-            [UIView animateWithDuration:0.2f animations:^{
-                bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
-            }];
-            
-        }
-        isBannerIsVisible = YES;
-    }
-}
--(void)bannerViewWillLoadAd:(ADBannerView *)banner{
-    
 }
 
 #pragma mark - Navigation

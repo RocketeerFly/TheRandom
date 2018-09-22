@@ -47,6 +47,8 @@ static NSString* placeholder = @"Press and release button or shake to start";
     isRolling = NO;
     isHoldButtonMode = NO;
     isIphone = YES;
+    isNoRepeat = NO;
+    isLoaded = NO;
     arrRecent = [[NSMutableArray alloc] init];
     float heightButton = csHeighButtonIphone.constant;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
@@ -102,6 +104,7 @@ static NSString* placeholder = @"Press and release button or shake to start";
         @finally {
             
         }
+        lbDefault.hidden = YES;
     }
     //use observer to hanele when app will close
     NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
@@ -115,23 +118,62 @@ static NSString* placeholder = @"Press and release button or shake to start";
     btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
 }
 -(void)viewWillAppear:(BOOL)animated{
-    ;
+    
 }
 -(void)viewDidAppear:(BOOL)animated{
     //show banner iAds
-    if (!bannerView) {
-        bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        bannerView.delegate = self;
-        bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (!bannerAdmobView) {
+        CGPoint orgin = CGPointMake(0.0,
+                                    self.view.frame.size.height -
+                                    CGSizeFromGADAdSize(
+                                                        kGADAdSizeSmartBannerPortrait).height);
+        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
+        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
+        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
+        bannerAdmobView.rootViewController = self;
+        bannerAdmobView.delegate = self;
+        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
+        
+        [self.view addSubview:bannerAdmobView];
+        
+        GADRequest* request = [[GADRequest alloc] init];
+        [bannerAdmobView loadRequest:request];
+    }
+    isLoaded = YES;
+    [self.view layoutSubviews];
+}
+- (void) viewWillLayoutSubviews{
+    if (!isLoaded) {
+        int height = [UIScreen mainScreen].bounds.size.height;
+        if (height == 480) {
+            csResultCenterY.constant = 0;
+            csMaxCenterY.constant = 90;
+            csMinCenterY.constant = 90;
+            NSLog(@"layout");
+        }
     }
 }
+- (IBAction)changeRepeatSetting:(id)sender {
+    isNoRepeat = !isNoRepeat;
+    if(isNoRepeat){
+        [btnNoRepeats setImage:[UIImage imageNamed:@"ico_check"] forState:UIControlStateNormal];
+        indexBeginNotRepeat = (int)arrRecent.count;
+    }else{
+        [btnNoRepeats setImage:[UIImage imageNamed:@"ico_not_check"] forState:UIControlStateNormal];
+    }
+    NSLog(@"repeat: %@ index:%d", isNoRepeat? @"YES":@"NO",indexBeginNotRepeat);
+}
+
 -(void)resetRandom{
     if (isRolling) {
         return;
     }
     tfMax.text=@"";
     tfMin.text=@"";
+    lbDefault.hidden = NO;
     lbResult.text=@"?";
+    indexBeginNotRepeat = 0;
     [arrRecent removeAllObjects];
     currentColorIndex = 0;
     [btnRecent setTitle:placeholder forState:UIControlStateNormal];
@@ -229,6 +271,10 @@ static NSString* placeholder = @"Press and release button or shake to start";
     }
 }
 -(void)doRandom{
+    //hide default
+    if (!lbDefault.isHidden) {
+        [lbDefault setHidden:YES];
+    }
     
     //check stop
     float time = INTERVAL_TICK*countTimer;
@@ -241,8 +287,31 @@ static NSString* placeholder = @"Press and release button or shake to start";
         return;
     }
     countTimer++;
-    lbResult.text = [NSString stringWithFormat:@"%ld",(long)[self generateRandomNumber]];
+    
     //[lbResult sizeToFit];
+    //set up min, max
+    int min,max;
+    min = tfMin.text.intValue;
+    max = tfMax.text.intValue;
+    if (min==max && min==0) {
+        min=0;
+        max = 99;
+        if ([tfMin.text isEqualToString:@""] && [tfMax.text isEqualToString:@""]) {
+            tfMin.text = @"0";
+            tfMax.text = @"99";
+            lbDefault.hidden = YES;
+        }
+    }
+    if (min>max) {
+        int tmp = min;
+        min = max;
+        max = tmp;
+    }
+    
+    int randNumber = [self generateRandomNumber:min max:max];
+    
+    //show number
+    lbResult.text = [NSString stringWithFormat:@"%d",randNumber];
     
     while (true) {
         int randomColorIndex = rand()%arrColor.count;
@@ -266,23 +335,7 @@ static NSString* placeholder = @"Press and release button or shake to start";
     
     return newLength <= MAXLENGTH || returnKey;
 }
--(NSInteger)generateRandomNumber{
-    int min,max;
-    min = tfMin.text.intValue;
-    max = tfMax.text.intValue;
-    if (min==max && min==0) {
-        min=0;
-        max = 99;
-        if ([tfMin.text isEqualToString:@""] && [tfMax.text isEqualToString:@""]) {
-            tfMin.text = @"0";
-            tfMax.text = @"99";
-        }
-    }
-    if (min>max) {
-        int tmp = min;
-        min = max;
-        max = tmp;
-    }
+-(int)generateRandomNumber:(int)min max:(int)max{
     int distance = max-min+1;
     int result = min + rand()%distance;
     
@@ -332,6 +385,35 @@ static NSString* placeholder = @"Press and release button or shake to start";
         
         oldColorIndex = currentColorIndex;
         
+        //random another number if no repeats is YES
+        if (isNoRepeat) {
+            if (indexBeginNotRepeat == arrRecent.count) {
+                NSLog(@"Do nothing");
+            }else{
+                int distance = (int)maxInput - (int)minInput + 1;
+                NSArray* arrNotRepeat = [arrRecent subarrayWithRange:NSMakeRange(indexBeginNotRepeat, arrRecent.count-indexBeginNotRepeat)];
+                
+                if (arrNotRepeat.count>0) {
+                    NSString* stringNumber = lbResult.text;
+                    while (true) {
+                        if ([arrNotRepeat indexOfObject:stringNumber] == NSNotFound) {
+                            break;
+                        }
+                        stringNumber = [NSString stringWithFormat:@"%d",[self generateRandomNumber:(int)minInput max:(int)maxInput]];
+                    }
+                    lbResult.text = stringNumber;
+                    
+                    if (arrNotRepeat.count == (distance-1)) {
+                        //alert: You generated all numbers in between min and max. You must reset to start over
+                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"You generated all numbers in between min and max. We gonna start over again"
+                                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                        [alert show];
+                        indexBeginNotRepeat = (int)arrRecent.count+1;
+                    }
+                }
+            }
+        }
+        
         //add to recent
         [arrRecent addObject:lbResult.text];
         [self updateRecent];
@@ -378,43 +460,6 @@ static NSString* placeholder = @"Press and release button or shake to start";
         [userdef synchronize];
     }
 
-}
-
-//iAds delegates
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-}
--(void)bannerViewActionDidFinish:(ADBannerView *)banner{
-}
--(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    if (!isBannerIsVisible) {
-        if (!bannerView.superview) {
-            CGRect rect = bannerView.frame;
-            rect.origin.x = 0;
-            rect.origin.y = self.view.frame.size.height;
-            bannerView.frame = rect;
-            [self.view addSubview:bannerView];
-            
-            //add new constraint for recent buttons at botoom
-            
-        }
-        [UIView animateWithDuration:0.2f animations:^{
-            bannerView.frame = CGRectOffset(bannerView.frame, 0, -bannerView.frame.size.height);
-            if (isIphone) {
-                csButtonRecentBottomIphone.constant+=bannerView.frame.size.height*0.7;
-            }else{
-                csButtonRecentBottomIpad.constant+=bannerView.frame.size.height*0.4;
-            }
-            
-        }];
-        isBannerIsVisible = YES;
-        [self.view layoutIfNeeded];
-    }
-}
--(void)bannerViewWillLoadAd:(ADBannerView *)banner{
-    
-}
--(BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
-    return YES;
 }
 
 /*

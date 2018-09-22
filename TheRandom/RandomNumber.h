@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,ADBannerViewDelegate>{
+@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,GADBannerViewDelegate>{
     IBOutlet UITextField* tfMin;
     IBOutlet UITextField* tfMax;
     IBOutlet UILabel* lbResult;
     IBOutlet UIButton* btnRecent;
     IBOutlet UIButton* btnRandomize;
+    IBOutlet UILabel *lbDefault;
+    IBOutlet UIButton *btnNoRepeats;
     NSArray* arrColor;
     NSMutableArray* arrRecent;
     int currentColorIndex;
@@ -23,15 +25,21 @@
     int oldColorIndex;
     bool isRolling;
     bool isHoldButtonMode;
+    bool isNoRepeat;
+    bool isLoaded;
+    int indexBeginNotRepeat;
     NSInteger minInput;
     NSInteger maxInput;
     IBOutlet NSLayoutConstraint* csHeighButtonIphone;
     IBOutlet NSLayoutConstraint* csHeighButtonIpad;
     IBOutlet NSLayoutConstraint* csButtonRecentBottomIphone;
     IBOutlet NSLayoutConstraint* csButtonRecentBottomIpad;
+    IBOutlet NSLayoutConstraint *csResultCenterY;
+    IBOutlet NSLayoutConstraint *csMinCenterY;
+    IBOutlet NSLayoutConstraint *csMaxCenterY;
     
     bool isBannerIsVisible;
-    ADBannerView* bannerView;
+    GADBannerView* bannerAdmobView;
     bool isIphone;
 }
 

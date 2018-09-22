@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     isSelected = NO;
+    isLoaded = NO;
     int borderWidth=0;
     //check ipad or iphone
     float rateCorner = 0;
@@ -35,14 +36,14 @@
         [self setConstraintForIpad];
     }else{
         rateCorner = 0.5;
-        UIFont* font = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTheRandom.font.fontName] size:20];
+        UIFont* font = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTheRandom.font.fontName] size:21];
         borderWidth = 1;
         lbTheRandom.font = font;
         
         //6,6 plus
         int height = [UIScreen mainScreen].bounds.size.height;
         if (height==736.0f || height == 667.0f) {
-            UIFont* font1 = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTheRandom.font.fontName] size:22];
+            UIFont* font1 = [UIFont fontWithName:[NSString stringWithFormat:@"%@",lbTheRandom.font.fontName] size:23];
             lbTheRandom.font = font1;
             [self setConstraintForIphone6];
         }
@@ -117,20 +118,28 @@
 }
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    int height = [UIScreen mainScreen].bounds.size.height;
-    if (height==736.0f || height == 667.0f) {
-        [self setConstraintForIphone6];
-        [self updateSizeIcon];
+    if (!isLoaded) {
+        int height = [UIScreen mainScreen].bounds.size.height;
+        if (height==736.0f || height == 667.0f) {
+            [self setConstraintForIphone6];
+            [self updateSizeIcon];
+        }
     }
 }
 -(void)viewDidLayoutSubviews{
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        [self setConstraintForIpad];
-        [self updateSizeIcon];
+    if(!isLoaded){
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            [self setConstraintForIpad];
+            [self updateSizeIcon];
+        }
+
     }
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [self.view layoutIfNeeded];
+    //[self.view layoutIfNeeded];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    isLoaded = YES;
 }
 -(IBAction)gotoRandomNumber:(id)sender{
     dispatch_async(dispatch_get_main_queue(), ^{
