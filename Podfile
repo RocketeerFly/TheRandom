@@ -7,7 +7,6 @@ target 'TheRandom' do
 
   # Pods for TheRandom
   pod 'Google-Mobile-Ads-SDK', '~> 7.5'
-
   target 'TheRandomTests' do
     inherit! :search_paths
     # Pods for testing

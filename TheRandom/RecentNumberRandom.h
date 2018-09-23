@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface RecentNumberRandom : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface RecentNumberRandom : BaseViewController<UITableViewDataSource,UITableViewDelegate>{
     NSArray* arrRecents;
     IBOutlet UITableView* tbv;
 }

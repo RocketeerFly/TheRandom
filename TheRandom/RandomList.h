@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AUIAutoGrowingTextView.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "BaseViewController.h"
 
-@interface RandomList : UIViewController<UITextViewDelegate,GADBannerViewDelegate>{
+@interface RandomList : BaseViewController<UITextViewDelegate,GADBannerViewDelegate>{
     IBOutlet AUIAutoGrowingTextView* tfList;
     IBOutlet UIButton* btnRandomize;
     IBOutlet NSLayoutConstraint* constraintTextHeight;

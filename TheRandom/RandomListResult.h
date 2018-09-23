@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface RandomListResult : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface RandomListResult : BaseViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UILabel* lbTip;
     IBOutlet UITableView* tvList;
     NSMutableArray* arrList;

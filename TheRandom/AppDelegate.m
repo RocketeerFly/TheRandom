@@ -17,6 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    UITabBar.appearance.backgroundColor = [UIColor colorWithRed:24/255.0 green:24/255.0 blue:24/255.0 alpha:1.0];
+    UITabBar.appearance.translucent = NO;
+    [UINavigationBar.appearance setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    UIBarButtonItem.appearance.tintColor = [UIColor colorWithRed:247/255.0 green:149/255.0 blue:19/255.0 alpha:1.0];
+    [UITabBarItem.appearance setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]} forState:UIControlStateNormal];
+    UINavigationBar.appearance.backgroundColor = [UIColor colorWithRed:24/255.0 green:24/255.0 blue:24/255.0 alpha:1.0];
+    UINavigationBar.appearance.barTintColor = [UIColor colorWithRed:24/255.0 green:24/255.0 blue:24/255.0 alpha:1.0];
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
     return YES;
 }
 

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface RecentDice : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface RecentDice : BaseViewController<UITableViewDataSource,UITableViewDelegate>{
     NSArray* arrRecents;
     IBOutlet UITableView* tbv;
     int heighRow;

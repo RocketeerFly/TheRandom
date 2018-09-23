@@ -5,7 +5,7 @@
 //  Created by Rocketeer on 6/1/15.
 //  Copyright (c) 2015 Rocketeer. All rights reserved.
 //
-
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #import "RandomNumber.h"
 #import "RecentNumberRandom.h"
 #define MAXLENGTH 9
@@ -24,20 +24,20 @@ static NSString* placeholder = @"Press and release button or shake to start";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     arrColor = [NSArray arrayWithObjects:
-                [UIColor colorWithRed:67.0f/255.0f green:67.0f/255.0f blue:67.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:152.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:255.0f/255.0f green:153.0f/255.0f blue:0.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:74.0f/255.0f green:134.0f/255.0f blue:232.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:153.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:204.0f/255.0f green:65.0f/255.0f blue:37.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:106.0f/255.0f green:168.0f/255.0f blue:79.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:166.0f/255.0f green:77.0f/255.0f blue:121.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:28.0f/255.0f green:69.0f/255.0f blue:135.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:255.0f/255.0f green:217.0f/255.0f blue:102.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:182.0f/255.0f green:215.0f/255.0f blue:168.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:213.0f/255.0f green:166.0f/255.0f blue:189.0f/255.0f alpha:1.0],
-                [UIColor colorWithRed:38.0f/255.0f green:232.0f/255.0f blue:89.0f/255.0f alpha:1.0]
+                UIColorFromRGB(0x2cf33d),
+                UIColorFromRGB(0x2cf3bd),
+                UIColorFromRGB(0xaae091),
+                UIColorFromRGB(0xaaff00),
+                UIColorFromRGB(0xffff76),
+                UIColorFromRGB(0xff9600),
+                UIColorFromRGB(0xff3961),
+                UIColorFromRGB(0xff41d3),
+                UIColorFromRGB(0x601300),
+                UIColorFromRGB(0xc67a78),
+                UIColorFromRGB(0x81d9f7),
+                UIColorFromRGB(0x1e87c5),
+                UIColorFromRGB(0x46d0a8),
+                UIColorFromRGB(0xffffff)
                 , nil];
     currentColorIndex = 0;
     lbResult.textColor = [arrColor objectAtIndex:currentColorIndex];
@@ -71,6 +71,9 @@ static NSString* placeholder = @"Press and release button or shake to start";
     [btnRecent setTitle:placeholder forState:UIControlStateNormal];
     btnRecent.enabled = NO;
     
+    [tfMax setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:@"Max" attributes:@{NSForegroundColorAttributeName: UIColor.darkGrayColor}]];
+    [tfMin setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:@"Min" attributes:@{NSForegroundColorAttributeName: UIColor.darkGrayColor}]];
+    
     //border randomize button
     btnRandomize.layer.borderWidth = 1;
     btnRandomize.layer.borderColor = [UIColor colorWithRed:26/255.0f green:203/255.0f blue:102/255.0f alpha:1.0f].CGColor;
@@ -87,7 +90,9 @@ static NSString* placeholder = @"Press and release button or shake to start";
     
     //add reset button
     UIBarButtonItem* btnReset = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStylePlain target:self action:@selector(resetRandom)];
+    UIBarButtonItem* buttonCopy = [[UIBarButtonItem alloc] initWithTitle:@"Copy" style:UIBarButtonItemStylePlain target:self action:@selector(copyResult)];
     self.navigationItem.rightBarButtonItem = btnReset;
+    self.navigationItem.leftBarButtonItem = buttonCopy;
     
     //load history input
     NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
@@ -158,9 +163,11 @@ static NSString* placeholder = @"Press and release button or shake to start";
     isNoRepeat = !isNoRepeat;
     if(isNoRepeat){
         [btnNoRepeats setImage:[UIImage imageNamed:@"ico_check"] forState:UIControlStateNormal];
+        [btnNoRepeats setTintColor:UIColor.whiteColor];
         indexBeginNotRepeat = (int)arrRecent.count;
     }else{
         [btnNoRepeats setImage:[UIImage imageNamed:@"ico_not_check"] forState:UIControlStateNormal];
+        [btnNoRepeats setTintColor:UIColor.lightGrayColor];
     }
     NSLog(@"repeat: %@ index:%d", isNoRepeat? @"YES":@"NO",indexBeginNotRepeat);
 }
@@ -236,8 +243,7 @@ static NSString* placeholder = @"Press and release button or shake to start";
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
-        UIPasteboard* pasetBoard = [UIPasteboard generalPasteboard];
-        pasetBoard.string = lbResult.text;
+        [self copyResult];
     }
 }
 -(BOOL)canBecomeFirstResponder{
@@ -422,6 +428,7 @@ static NSString* placeholder = @"Press and release button or shake to start";
     }
 }
 -(void)updateRecent{
+    [btnRecent setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnRecent.enabled = YES;
     int size = (int)arrRecent.count;
     int bottom = 0;
@@ -460,6 +467,11 @@ static NSString* placeholder = @"Press and release button or shake to start";
         [userdef synchronize];
     }
 
+}
+-(void)copyResult {
+    UIPasteboard* pasetBoard = [UIPasteboard generalPasteboard];
+    pasetBoard.string = lbResult.text;
+    [self.view makeToast:[NSString stringWithFormat:@"Copied '%@' successfully", lbResult.text]];
 }
 
 /*

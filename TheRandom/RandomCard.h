@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "BaseViewController.h"
 
-@interface RandomCard : UIViewController<GADBannerViewDelegate>{
+@interface RandomCard : BaseViewController<GADBannerViewDelegate>{
     
     IBOutlet UIImageView *ivCardTop;
     IBOutlet UIImageView *ivCardBottom;

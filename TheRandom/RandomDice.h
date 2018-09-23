@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "BaseViewController.h"
 
-@interface RandomDice : UIViewController<UIAlertViewDelegate,GADBannerViewDelegate>{
+@interface RandomDice : BaseViewController<UIAlertViewDelegate,GADBannerViewDelegate>{
     IBOutlet UIButton* btn1;
     IBOutlet UIButton* btn2;
     IBOutlet UIButton* btn3;

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "BaseViewController.h"
+#import "UIView+Toast.h"
 
-@interface RandomNumber : UIViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,GADBannerViewDelegate>{
+@interface RandomNumber : BaseViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,GADBannerViewDelegate>{
     IBOutlet UITextField* tfMin;
     IBOutlet UITextField* tfMax;
     IBOutlet UILabel* lbResult;

@@ -25,6 +25,8 @@
 		8BFABC971B15852900050C3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC961B15852900050C3E /* Images.xcassets */; };
 		8BFABC9A1B15852900050C3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC981B15852900050C3E /* LaunchScreen.xib */; };
 		8BFABCA61B15852900050C3E /* TheRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABCA51B15852900050C3E /* TheRandomTests.m */; };
+		D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F25C12157E0B80067E5C9 /* UIView+Toast.m */; };
+		D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D1118D2156A6880088C761 /* BaseViewController.m */; };
 		ECE0F0308806742D53BD0C60 /* libPods-TheRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430BF7CF79DB4A4EE5EE5796 /* libPods-TheRandom.a */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,10 @@
 		8BFABC9F1B15852900050C3E /* TheRandomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheRandomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFABCA41B15852900050C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BFABCA51B15852900050C3E /* TheRandomTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheRandomTests.m; sourceTree = "<group>"; };
+		D37F25C12157E0B80067E5C9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		D37F25C22157E0B80067E5C9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		D3D1118C2156A6880088C761 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		D3D1118D2156A6880088C761 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 		8BFABC881B15852900050C3E /* TheRandom */ = {
 			isa = PBXGroup;
 			children = (
+				D37F25C02157E0AA0067E5C9 /* Lib */,
 				8BD25D061B4BD90500360128 /* RecentDice.h */,
 				8BD25D071B4BD90500360128 /* RecentDice.m */,
 				8B7D9E821B2BDF7B001AF02B /* RandomListResult.h */,
@@ -155,6 +162,8 @@
 				8B1BFF951B1CC5220061DB27 /* RandomCard.h */,
 				8B1BFF961B1CC5220061DB27 /* RandomCard.m */,
 				8B65C7EE1B47DAB400B579D4 /* ColorPicker.xib */,
+				D3D1118C2156A6880088C761 /* BaseViewController.h */,
+				D3D1118D2156A6880088C761 /* BaseViewController.m */,
 			);
 			path = TheRandom;
 			sourceTree = "<group>";
@@ -184,6 +193,15 @@
 				8BFABCA41B15852900050C3E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D37F25C02157E0AA0067E5C9 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				D37F25C22157E0B80067E5C9 /* UIView+Toast.h */,
+				D37F25C12157E0B80067E5C9 /* UIView+Toast.m */,
+			);
+			name = Lib;
 			sourceTree = "<group>";
 		};
 		F0B000B721A43689078667E5 /* Pods */ = {
@@ -342,12 +360,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BFABC921B15852900050C3E /* ViewController.m in Sources */,
+				D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,
 				8B86499E1B22AF0200A77EFD /* RecentNumberRandom.m in Sources */,
 				8B619FCD1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m in Sources */,
 				8BD25D081B4BD90500360128 /* RecentDice.m in Sources */,
 				8BFABC8C1B15852900050C3E /* main.m in Sources */,
 				8B1BFF9C1B1CC5580061DB27 /* RandomDice.m in Sources */,
+				D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */,
 				8B1BFF9D1B1CC5580061DB27 /* RandomList.m in Sources */,
 				8B7D9E841B2BDF7B001AF02B /* RandomListResult.m in Sources */,
 				8BD67E1C1B1CBF4300DA1E9B /* RandomNumber.m in Sources */,
