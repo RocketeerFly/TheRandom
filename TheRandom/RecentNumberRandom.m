@@ -7,6 +7,7 @@
 //
 
 #import "RecentNumberRandom.h"
+#import "Constants.h"
 
 @interface RecentNumberRandom ()
 
@@ -22,6 +23,7 @@
     UIBarButtonItem* btnClear = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearRecent)];
     self.navigationItem.rightBarButtonItem = btnClear;
     tbv.tableFooterView = [UIView new];
+    tbv.backgroundColor = kColorDarkBG;
 }
 -(void)clearRecent{
     if (arrRecents) {
@@ -45,6 +47,8 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.backgroundColor = kColorDarkBG;
+        cell.textLabel.textColor = UIColor.whiteColor;
     }
     cell.textLabel.text = [arrRecents objectAtIndex:arrRecents.count-indexPath.row-1];
     return cell;

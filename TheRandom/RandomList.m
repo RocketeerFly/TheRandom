@@ -111,9 +111,9 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
 }
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     [tfList setContentOffset:CGPointZero];
-    if ([self color:textView.textColor isEqualToColor:[UIColor lightGrayColor] withTolerance:0.1f]) {
+    if ([textView.text isEqualToString:placeholder]) {
         textView.text = @"";
-        textView.textColor = [UIColor blackColor];
+        textView.textColor = [UIColor whiteColor];
     }
     [self showDoneButton];
     return YES;

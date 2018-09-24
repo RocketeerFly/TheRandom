@@ -8,6 +8,7 @@
 
 #import "RecentDice.h"
 #import "RandomDice.h"
+#import "Constants.h"
 
 @interface RecentDice ()
 
@@ -23,6 +24,7 @@
     UIBarButtonItem* btnClear = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearRecent)];
     self.navigationItem.rightBarButtonItem = btnClear;
     tbv.tableFooterView = [UIView new];
+    tbv.backgroundColor = kColorDarkBG;
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         heighRow = 66;
@@ -74,6 +76,8 @@
             layer.contents = (id)[UIImage imageNamed:[NSString stringWithFormat:@"dice_%@",[arr objectAtIndex:i]]].CGImage;
             [cell.layer addSublayer:layer];
         }
+        cell.backgroundColor = kColorDarkBG;
+        cell.textLabel.textColor = UIColor.whiteColor;
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%d",(int)indexPath.row+1];
     return cell;

@@ -56,8 +56,6 @@
     //load user's data
     NSUserDefaults* userDef = [NSUserDefaults standardUserDefaults];
     
-    UIBarButtonItem* btnRecent = [[UIBarButtonItem alloc] initWithTitle:@"Recent" style:UIBarButtonItemStyleBordered target:self action:@selector(showRecent:)];
-    self.navigationItem.rightBarButtonItem = btnRecent;
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float heightButton = csHeighButtonIphone.constant;
     float heightBtnNumber = csHeighNumberIphone.constant;
@@ -96,12 +94,6 @@
         extractWidth = 3;
         cornerRadiusBtnColor = 27.5;
     }
-    //btn color picker
-    btnColor.layer.cornerRadius = cornerRadiusBtnColor;
-    btnColor.layer.shadowColor = [UIColor grayColor].CGColor;
-    btnColor.layer.shadowOffset = CGSizeMake(1, 1);
-    btnColor.layer.shadowOpacity = 0.9f;
-    btnColor.layer.shadowRadius = 0;
     
     //btn choose num dices
     UIBezierPath* path1 = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, heightBtnNumber, heightBtnNumber) byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerTopLeft cornerRadii:CGSizeMake(heightBtnNumber/3, heightBtnNumber/3)];
@@ -178,7 +170,6 @@
     isPlaySound = !isPlaySound;
     [self changeSound:nil];
     btnSound.imageEdgeInsets = UIEdgeInsetsMake(BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET);
-    btnColor.imageEdgeInsets = UIEdgeInsetsMake(BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET, BTN_IMG_INSET);
     
     //dice's color default
     NSString* colorIndexSaved = [userDef valueForKey:@"rand_dice_color"];
@@ -207,7 +198,11 @@
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &sound1);
 }
 -(void)viewWillAppear:(BOOL)animated{
-    
+    UIBarButtonItem* buttonRecent = self.navigationItem.rightBarButtonItem;
+    if (buttonRecent) {
+        buttonRecent.enabled = NO;
+        buttonRecent.enabled = YES;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -326,7 +321,7 @@
         layer.frame = CGRectMake(pointPlaceDice.x, pointPlaceDice.y, diceSize, diceSize);
         layer.cornerRadius = diceSize/8;
         layer.backgroundColor = diceColor.CGColor;
-        layer.shadowColor = [UIColor grayColor].CGColor;
+        layer.shadowColor = [UIColor whiteColor].CGColor;
         layer.shadowOffset = CGSizeMake(-2, 2);
         layer.shadowOpacity = 1.0f;
         layer.shadowRadius = diceSize/20;

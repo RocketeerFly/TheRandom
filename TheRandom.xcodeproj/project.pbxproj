@@ -78,6 +78,7 @@
 		8BFABC9F1B15852900050C3E /* TheRandomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheRandomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFABCA41B15852900050C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BFABCA51B15852900050C3E /* TheRandomTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheRandomTests.m; sourceTree = "<group>"; };
+		D35F8D8921594041003A58F2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D37F25C12157E0B80067E5C9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		D37F25C22157E0B80067E5C9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		D3D1118C2156A6880088C761 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 				8B65C7EE1B47DAB400B579D4 /* ColorPicker.xib */,
 				D3D1118C2156A6880088C761 /* BaseViewController.h */,
 				D3D1118D2156A6880088C761 /* BaseViewController.m */,
+				D35F8D8921594041003A58F2 /* Constants.h */,
 			);
 			path = TheRandom;
 			sourceTree = "<group>";
