@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJO-bw-K0J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJO-bw-K0J">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1056,7 +1056,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="QPf-iw-W59">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="568"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="688" id="vTB-dT-2bH">
                                         <variation key="heightClass=regular-widthClass=compact" constant="10"/>
@@ -1190,7 +1190,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Mqj-o2-jzs"/>
                                 </constraints>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="dV5-dx-aGI" id="xSW-Zp-vGp"/>
@@ -1266,6 +1266,12 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 items" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQ7-Gk-C9r">
+                                <rect key="frame" x="298" y="170" width="51" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1282,6 +1288,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="L9n-1g-7Vv" secondAttribute="trailing" constant="20" id="4Fm-yg-lqQ">
                                 <variation key="heightClass=regular-widthClass=compact" constant="2"/>
                             </constraint>
+                            <constraint firstItem="rQ7-Gk-C9r" firstAttribute="top" secondItem="uxi-4d-Dga" secondAttribute="bottom" constant="24" id="CN3-VU-VxE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="L9n-1g-7Vv" secondAttribute="trailing" constant="296" id="Cha-bf-Xte">
                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                             </constraint>
@@ -1303,6 +1310,7 @@
                             <constraint firstItem="L9n-1g-7Vv" firstAttribute="top" secondItem="8Lv-w4-ZWq" secondAttribute="bottom" constant="-8" id="iKl-ju-pCl">
                                 <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                             </constraint>
+                            <constraint firstAttribute="trailing" secondItem="rQ7-Gk-C9r" secondAttribute="trailing" constant="26" id="iUz-BT-uqa"/>
                             <constraint firstItem="uxi-4d-Dga" firstAttribute="top" secondItem="8Lv-w4-ZWq" secondAttribute="bottom" constant="10" id="oRG-D4-HpV">
                                 <variation key="heightClass=regular-widthClass=compact" constant="52"/>
                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
@@ -1354,12 +1362,15 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="lCP-Vl-ikb"/>
-                    <navigationItem key="navigationItem" title="Shuffle List" id="OdC-ee-jpr"/>
+                    <navigationItem key="navigationItem" title="Shuffle List" id="OdC-ee-jpr">
+                        <barButtonItem key="leftBarButtonItem" title="Recent Lists" id="vsE-0W-Jxz"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnRandomize" destination="cmp-tV-OKS" id="BKM-Sg-vSE"/>
                         <outlet property="constraintTextHeight" destination="Mqj-o2-jzs" id="sNd-An-9nf"/>
                         <outlet property="csHeighButtonIpad" destination="swF-9e-4Es" id="8Wk-oN-mQz"/>
                         <outlet property="csHeighButtonIphone" destination="5AU-NA-jON" id="vIr-CD-6zT"/>
+                        <outlet property="labelCount" destination="rQ7-Gk-C9r" id="Mhr-Hm-i4Z"/>
                         <outlet property="lbTip" destination="L9n-1g-7Vv" id="3Qa-W9-tbe"/>
                         <outlet property="tfList" destination="uxi-4d-Dga" id="b0r-aQ-JcL"/>
                         <segue destination="MxY-V4-uWP" kind="show" identifier="showListRandom" id="me1-1I-w5b"/>

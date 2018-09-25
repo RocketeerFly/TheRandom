@@ -18,6 +18,7 @@
     IBOutlet NSLayoutConstraint* csHeighButtonIphone;
     IBOutlet NSLayoutConstraint* csHeighButtonIpad;
     IBOutlet UILabel* lbTip;
+    __weak IBOutlet UILabel *labelCount;
     CGRect previousRect;
     
     GADBannerView* bannerAdmobView;

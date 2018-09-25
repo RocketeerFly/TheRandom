@@ -59,6 +59,8 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.backgroundColor = UIColor.clearColor;
+        cell.textLabel.textColor = UIColor.whiteColor;
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",(int)indexPath.row+1,[arrList objectAtIndex:indexPath.row]];
     return cell;

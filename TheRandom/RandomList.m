@@ -28,7 +28,7 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
         lbTip.font = [UIFont systemFontOfSize:18];
     }
     
-    tfList.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    tfList.layer.borderColor = [UIColor darkGrayColor].CGColor;
     tfList.layer.borderWidth = 1;
     tfList.layer.cornerRadius = radius;
     tfList.contentMode = UIViewContentModeTopLeft;
@@ -125,6 +125,14 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
         if ([lastLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length==0) {
             return NO;
         }
+    }
+    NSString* newString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    if ([newString stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet].length > 0) {
+        NSArray* lines = [newString componentsSeparatedByString:@"\n"];
+        labelCount.text = [NSString stringWithFormat:@"%lu items", (unsigned long)lines.count];
+    }
+    else {
+        labelCount.text = @"0 items";
     }
     return YES;
 }
