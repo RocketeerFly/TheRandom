@@ -62,7 +62,24 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
     [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDown];
     [btnRandomize addTarget:self action:@selector(buttonOffTouch) forControlEvents:UIControlEventTouchUpInside];
     [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
+    
+    isNeedFillRecentList = YES;
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    UIBarButtonItem* buttonRecent = self.navigationItem.leftBarButtonItem;
+    if (buttonRecent) {
+        buttonRecent.enabled = NO;
+        buttonRecent.enabled = YES;
+    }
+    
+    id list = [NSUserDefaults.standardUserDefaults objectForKey:@"recent_list"];
+    if (list && isNeedFillRecentList) {
+        NSArray* array = (NSArray*)list;
+        tfList.text = array.lastObject;
+    }
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     if (!bannerAdmobView) {
         CGPoint orgin = CGPointMake(0.0,
@@ -117,6 +134,7 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
         textView.textColor = [UIColor whiteColor];
     }
     [self showDoneButton];
+    isNeedFillRecentList = NO;
     return YES;
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -154,8 +172,22 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
 }
 -(IBAction)proceed:(id)sender{
     if (![tfList.text isEqualToString:placeholder]) {
+        [self saveTheList];
         [self performSegueWithIdentifier:@"showListRandom" sender:self];
     }
+}
+-(void)saveTheList {
+    id recent = [NSUserDefaults.standardUserDefaults objectForKey:@"recent_list"];
+    NSArray* arrayList = [NSArray array];
+    if (recent) {
+        arrayList = (NSArray*)recent;
+        for (NSString* list in arrayList) {
+            if ([list isEqualToString:tfList.text]) {
+                return;
+            }
+        }
+    }
+    [NSUserDefaults.standardUserDefaults setObject:[arrayList arrayByAddingObject:tfList.text] forKey:@"recent_list"];
 }
 
 #pragma mark - Navigation
@@ -164,8 +196,15 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    RandomListResult* destView = segue.destinationViewController;
-    destView.listText = tfList.text;
+    if ([segue.identifier  isEqual: @"showListRandom"]) {
+        RandomListResult* destView = segue.destinationViewController;
+        destView.listText = tfList.text;
+    } else if ([segue.identifier isEqualToString:@"showRecentList"]) {
+        RecentListViewController* vc = segue.destinationViewController;
+        vc.onSelected = ^(NSString *selectedList) {
+            tfList.text = selectedList;
+        };
+    }
 }
 
 - (BOOL)color:(UIColor *)color1

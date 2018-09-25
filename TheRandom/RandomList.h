@@ -10,6 +10,7 @@
 #import "AUIAutoGrowingTextView.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "BaseViewController.h"
+#import "RecentListViewController.h"
 
 @interface RandomList : BaseViewController<UITextViewDelegate,GADBannerViewDelegate>{
     IBOutlet AUIAutoGrowingTextView* tfList;
@@ -23,6 +24,7 @@
     
     GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
+    BOOL isNeedFillRecentList;
 }
 
 @end

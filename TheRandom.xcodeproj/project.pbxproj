@@ -27,6 +27,8 @@
 		8BFABCA61B15852900050C3E /* TheRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABCA51B15852900050C3E /* TheRandomTests.m */; };
 		D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F25C12157E0B80067E5C9 /* UIView+Toast.m */; };
 		D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */; };
+		D3CAC4BE215A995F003DA650 /* RecentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAC4BD215A995F003DA650 /* RecentListTableViewCell.m */; };
+		D3CAC4C1215A99CE003DA650 /* RecentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAC4C0215A99CE003DA650 /* RecentListViewController.m */; };
 		D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D1118D2156A6880088C761 /* BaseViewController.m */; };
 		ECE0F0308806742D53BD0C60 /* libPods-TheRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430BF7CF79DB4A4EE5EE5796 /* libPods-TheRandom.a */; };
 /* End PBXBuildFile section */
@@ -84,6 +86,10 @@
 		D37F25C22157E0B80067E5C9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		D3BA2D79215A0D56005A480D /* MyTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarViewController.h; sourceTree = "<group>"; };
 		D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTabBarViewController.m; sourceTree = "<group>"; };
+		D3CAC4BC215A995F003DA650 /* RecentListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecentListTableViewCell.h; sourceTree = "<group>"; };
+		D3CAC4BD215A995F003DA650 /* RecentListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecentListTableViewCell.m; sourceTree = "<group>"; };
+		D3CAC4BF215A99CE003DA650 /* RecentListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecentListViewController.h; sourceTree = "<group>"; };
+		D3CAC4C0215A99CE003DA650 /* RecentListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecentListViewController.m; sourceTree = "<group>"; };
 		D3D1118C2156A6880088C761 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		D3D1118D2156A6880088C761 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +146,7 @@
 		8BFABC881B15852900050C3E /* TheRandom */ = {
 			isa = PBXGroup;
 			children = (
+				D3CAC4BB215A9941003DA650 /* CustomView */,
 				D37F25C02157E0AA0067E5C9 /* Lib */,
 				8BD25D061B4BD90500360128 /* RecentDice.h */,
 				8BD25D071B4BD90500360128 /* RecentDice.m */,
@@ -171,6 +178,8 @@
 				D35F8D8921594041003A58F2 /* Constants.h */,
 				D3BA2D79215A0D56005A480D /* MyTabBarViewController.h */,
 				D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */,
+				D3CAC4BF215A99CE003DA650 /* RecentListViewController.h */,
+				D3CAC4C0215A99CE003DA650 /* RecentListViewController.m */,
 			);
 			path = TheRandom;
 			sourceTree = "<group>";
@@ -209,6 +218,15 @@
 				D37F25C12157E0B80067E5C9 /* UIView+Toast.m */,
 			);
 			name = Lib;
+			sourceTree = "<group>";
+		};
+		D3CAC4BB215A9941003DA650 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D3CAC4BC215A995F003DA650 /* RecentListTableViewCell.h */,
+				D3CAC4BD215A995F003DA650 /* RecentListTableViewCell.m */,
+			);
+			name = CustomView;
 			sourceTree = "<group>";
 		};
 		F0B000B721A43689078667E5 /* Pods */ = {
@@ -367,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */,
+				D3CAC4C1215A99CE003DA650 /* RecentListViewController.m in Sources */,
 				8BFABC921B15852900050C3E /* ViewController.m in Sources */,
 				D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,
+				D3CAC4BE215A995F003DA650 /* RecentListTableViewCell.m in Sources */,
 				8B86499E1B22AF0200A77EFD /* RecentNumberRandom.m in Sources */,
 				8B619FCD1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m in Sources */,
 				8BD25D081B4BD90500360128 /* RecentDice.m in Sources */,
