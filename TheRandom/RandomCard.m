@@ -95,6 +95,7 @@
     }
     [svCardOpened setContentSize:CGSizeMake(svCardOpened.frame.size.width, svCardOpened.frame.size.height)];
     sizeListAtInit = svCardOpened.contentSize;
+    [NSUserDefaults.standardUserDefaults setObject:@"3" forKey:@"last_tab_index"];
 }
 -(void)stopCardAnim{
     isOpeningCard = NO;

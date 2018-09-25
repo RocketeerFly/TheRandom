@@ -36,6 +36,12 @@
     RandomDice* randDice = (RandomDice*)self.delegate;
     arrDiceColor = randDice.arrDiceColor;
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [NSUserDefaults.standardUserDefaults setObject:@"1" forKey:@"last_tab_index"];
+}
+
 -(void)clearRecent{
     if (arrRecents) {
         if ([self.delegate respondsToSelector:@selector(clearRecent)]) {

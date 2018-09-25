@@ -26,6 +26,7 @@
 		8BFABC9A1B15852900050C3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC981B15852900050C3E /* LaunchScreen.xib */; };
 		8BFABCA61B15852900050C3E /* TheRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABCA51B15852900050C3E /* TheRandomTests.m */; };
 		D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F25C12157E0B80067E5C9 /* UIView+Toast.m */; };
+		D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */; };
 		D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D1118D2156A6880088C761 /* BaseViewController.m */; };
 		ECE0F0308806742D53BD0C60 /* libPods-TheRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430BF7CF79DB4A4EE5EE5796 /* libPods-TheRandom.a */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,8 @@
 		D35F8D8921594041003A58F2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D37F25C12157E0B80067E5C9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		D37F25C22157E0B80067E5C9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		D3BA2D79215A0D56005A480D /* MyTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarViewController.h; sourceTree = "<group>"; };
+		D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTabBarViewController.m; sourceTree = "<group>"; };
 		D3D1118C2156A6880088C761 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		D3D1118D2156A6880088C761 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +169,8 @@
 				D3D1118C2156A6880088C761 /* BaseViewController.h */,
 				D3D1118D2156A6880088C761 /* BaseViewController.m */,
 				D35F8D8921594041003A58F2 /* Constants.h */,
+				D3BA2D79215A0D56005A480D /* MyTabBarViewController.h */,
+				D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */,
 			);
 			path = TheRandom;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */,
 				8BFABC921B15852900050C3E /* ViewController.m in Sources */,
 				D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,

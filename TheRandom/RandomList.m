@@ -82,6 +82,7 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
         GADRequest* request = [[GADRequest alloc] init];
         [bannerAdmobView loadRequest:request];
     }
+    [NSUserDefaults.standardUserDefaults setObject:@"2" forKey:@"last_tab_index"];
 }
 -(void)buttonOnTouch{
     btnRandomize.layer.borderColor = [UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f].CGColor;

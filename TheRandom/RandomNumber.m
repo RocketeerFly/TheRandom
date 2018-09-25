@@ -147,6 +147,8 @@ static NSString* placeholder = @"Press and release button or shake to start";
     }
     isLoaded = YES;
     [self.view layoutSubviews];
+    
+    [NSUserDefaults.standardUserDefaults setObject:@"0" forKey:@"last_tab_index"];
 }
 - (void) viewWillLayoutSubviews{
     if (!isLoaded) {
