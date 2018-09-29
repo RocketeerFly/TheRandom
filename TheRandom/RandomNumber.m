@@ -13,6 +13,7 @@
 #define TIME_RANDOM 0.05
 #define NUM_RECENT 10
 @interface RandomNumber ()
+@property (weak, nonatomic) IBOutlet GADBannerView *viewAd;
 
 @end
 
@@ -23,6 +24,12 @@ static NSString* placeholder = @"Press and release button or shake to start";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //set up ads
+    _viewAd.rootViewController = self;
+    _viewAd.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    _viewAd.adSize = kGADAdSizeBanner;
+    
     arrColor = [NSArray arrayWithObjects:
                 UIColorFromRGB(0x2cf33d),
                 UIColorFromRGB(0x2cf3bd),
@@ -126,28 +133,12 @@ static NSString* placeholder = @"Press and release button or shake to start";
     
 }
 -(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     //show banner iAds
-    if (!bannerAdmobView) {
-        CGPoint orgin = CGPointMake(0.0,
-                                    self.view.frame.size.height -
-                                    CGSizeFromGADAdSize(
-                                                        kGADAdSizeSmartBannerPortrait).height);
-        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
-        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
-        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
-        bannerAdmobView.rootViewController = self;
-        bannerAdmobView.delegate = self;
-        CGSize screenSize = UIScreen.mainScreen.bounds.size;
-        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
-        
-        [self.view addSubview:bannerAdmobView];
-        
-        GADRequest* request = [[GADRequest alloc] init];
-        [bannerAdmobView loadRequest:request];
-    }
     isLoaded = YES;
+    GADRequest* request = [GADRequest request];
+    [self.viewAd loadRequest:request];
     [self.view layoutSubviews];
-    
     [NSUserDefaults.standardUserDefaults setObject:@"0" forKey:@"last_tab_index"];
 }
 - (void) viewWillLayoutSubviews{

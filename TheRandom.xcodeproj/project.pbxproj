@@ -25,6 +25,8 @@
 		8BFABC971B15852900050C3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC961B15852900050C3E /* Images.xcassets */; };
 		8BFABC9A1B15852900050C3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC981B15852900050C3E /* LaunchScreen.xib */; };
 		8BFABCA61B15852900050C3E /* TheRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABCA51B15852900050C3E /* TheRandomTests.m */; };
+		D3616865215BE6B700BBB702 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3616863215BE6B700BBB702 /* SettingViewController.m */; };
+		D3616866215BE6B700BBB702 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3616864215BE6B700BBB702 /* SettingViewController.xib */; };
 		D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F25C12157E0B80067E5C9 /* UIView+Toast.m */; };
 		D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */; };
 		D3CAC4BE215A995F003DA650 /* RecentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAC4BD215A995F003DA650 /* RecentListTableViewCell.m */; };
@@ -82,6 +84,9 @@
 		8BFABCA41B15852900050C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BFABCA51B15852900050C3E /* TheRandomTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheRandomTests.m; sourceTree = "<group>"; };
 		D35F8D8921594041003A58F2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D3616862215BE6B700BBB702 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		D3616863215BE6B700BBB702 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		D3616864215BE6B700BBB702 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		D37F25C12157E0B80067E5C9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		D37F25C22157E0B80067E5C9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		D3BA2D79215A0D56005A480D /* MyTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarViewController.h; sourceTree = "<group>"; };
@@ -180,6 +185,9 @@
 				D3BA2D7A215A0D56005A480D /* MyTabBarViewController.m */,
 				D3CAC4BF215A99CE003DA650 /* RecentListViewController.h */,
 				D3CAC4C0215A99CE003DA650 /* RecentListViewController.m */,
+				D3616862215BE6B700BBB702 /* SettingViewController.h */,
+				D3616863215BE6B700BBB702 /* SettingViewController.m */,
+				D3616864215BE6B700BBB702 /* SettingViewController.xib */,
 			);
 			path = TheRandom;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B3A80DE1B458C2700125AEC /* roll_dice.caf in Resources */,
+				D3616866215BE6B700BBB702 /* SettingViewController.xib in Resources */,
 				8BFABC951B15852900050C3E /* Main.storyboard in Resources */,
 				8BFABC9A1B15852900050C3E /* LaunchScreen.xib in Resources */,
 				8B65C7EF1B47DAB400B579D4 /* ColorPicker.xib in Resources */,
@@ -386,6 +395,7 @@
 			files = (
 				D3BA2D7B215A0D56005A480D /* MyTabBarViewController.m in Sources */,
 				D3CAC4C1215A99CE003DA650 /* RecentListViewController.m in Sources */,
+				D3616865215BE6B700BBB702 /* SettingViewController.m in Sources */,
 				8BFABC921B15852900050C3E /* ViewController.m in Sources */,
 				D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,
@@ -528,7 +538,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheRandom/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -545,7 +555,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheRandom/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

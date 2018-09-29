@@ -10,6 +10,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "BaseViewController.h"
 #import "UIView+Toast.h"
+@import GoogleMobileAds;
 
 @interface RandomNumber : BaseViewController<UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate,GADBannerViewDelegate>{
     IBOutlet UITextField* tfMin;
@@ -40,8 +41,6 @@
     IBOutlet NSLayoutConstraint *csMinCenterY;
     IBOutlet NSLayoutConstraint *csMaxCenterY;
     
-    bool isBannerIsVisible;
-    GADBannerView* bannerAdmobView;
     bool isIphone;
 }
 

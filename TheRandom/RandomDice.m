@@ -10,6 +10,7 @@
 #import "RecentDice.h"
 
 @interface RandomDice ()
+@property (weak, nonatomic) IBOutlet GADBannerView *viewAd;
 
 @end
 
@@ -206,24 +207,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    if (!bannerAdmobView) {
-        CGPoint orgin = CGPointMake(0.0,
-                                    self.view.frame.size.height -
-                                    CGSizeFromGADAdSize(
-                                                        kGADAdSizeSmartBannerPortrait).height);
-        bannerAdmobView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:orgin];
-        bannerAdmobView.adUnitID = @"ca-app-pub-4565726969790499/2040556564";
-        bannerAdmobView.adSize = kGADAdSizeSmartBannerPortrait;
-        bannerAdmobView.rootViewController = self;
-        bannerAdmobView.delegate = self;
-        CGSize screenSize = UIScreen.mainScreen.bounds.size;
-        bannerAdmobView.frame = CGRectMake(0, screenSize.height - bannerAdmobView.frame.size.height, screenSize.width, bannerAdmobView.frame.size.height);
-        
-        [self.view addSubview:bannerAdmobView];
-        
-        GADRequest* request = [[GADRequest alloc] init];
-        [bannerAdmobView loadRequest:request];
-    }
+    [super viewDidAppear:animated];
 }
 
 -(IBAction)chooseNumDices:(id)sender{

@@ -32,7 +32,6 @@
 		221CB88D075245E9A8B03DA0A55ABA88 /* Pods-TheRandom-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TheRandom-resources.sh"; sourceTree = "<group>"; };
 		2E021D9889E42B5EABAAF5CF11155619 /* Pods-TheRandomTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TheRandomTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		309E944A24587F38A678B3F5B771187F /* Pods-TheRandomTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TheRandomTests-frameworks.sh"; sourceTree = "<group>"; };
-		5498EEBC580021C838DFC97008F4E819 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "GoogleMobileAdsSdkiOS-7.7.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		8C4662E8F1002408F9B7990C66FF2ED5 /* Pods-TheRandom-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TheRandom-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -43,6 +42,7 @@
 		C46382B403F91996C0083A02C49D093D /* libPods-TheRandomTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-TheRandomTests.a"; path = "libPods-TheRandomTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D208FE6DDC40C31D920974BBCAF042BD /* Pods-TheRandom-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TheRandom-dummy.m"; sourceTree = "<group>"; };
 		E7C9A65FD9C33DC9D6613873F893D183 /* Pods-TheRandom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TheRandom.debug.xcconfig"; sourceTree = "<group>"; };
+		F87BBE855D70C2F87C02A1CCA30E262D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +99,10 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8F1DA0DA8C21EFD7988505F2BD99ABBF /* Frameworks */ = {
+		953FD61A3CECC96530CB5CA297A086C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5498EEBC580021C838DFC97008F4E819 /* GoogleMobileAds.framework */,
+				F87BBE855D70C2F87C02A1CCA30E262D /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 		E91D6015731707498AAA5817D350B87B /* Google-Mobile-Ads-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				8F1DA0DA8C21EFD7988505F2BD99ABBF /* Frameworks */,
+				953FD61A3CECC96530CB5CA297A086C1 /* Frameworks */,
 			);
 			name = "Google-Mobile-Ads-SDK";
 			path = "Google-Mobile-Ads-SDK";

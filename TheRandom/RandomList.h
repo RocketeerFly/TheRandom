@@ -22,7 +22,6 @@
     __weak IBOutlet UILabel *labelCount;
     CGRect previousRect;
     
-    GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
     BOOL isNeedFillRecentList;
 }

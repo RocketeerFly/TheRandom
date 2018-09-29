@@ -6,7 +6,7 @@ target 'TheRandom' do
   # use_frameworks!
 
   # Pods for TheRandom
-  pod 'Google-Mobile-Ads-SDK', '~> 7.5'
+  pod 'Google-Mobile-Ads-SDK'
   target 'TheRandomTests' do
     inherit! :search_paths
     # Pods for testing
