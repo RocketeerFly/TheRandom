@@ -25,8 +25,6 @@
     bool isOpenedCard;
     CGSize sizeListAtInit;
     UIImage* imgCarBack;
-    
-    GADBannerView* bannerAdmobView;
     bool isBannerIsVisible;
 }
 

@@ -8,10 +8,16 @@
 
 #import "RandomCard.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SettingViewController.h"
+@import FirebaseAnalytics;
 
 #define RATE_W_H_CARD 1.4035f
 
 @interface RandomCard ()
+@property (weak, nonatomic) IBOutlet GADBannerView *viewAds;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBannerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeightButtonCloseAds;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCloseAds;
 
 @end
 
@@ -19,7 +25,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_buttonCloseAds setHidden:YES];
     // Do any additional setup after loading the view.
+    _viewAds.rootViewController = self;
+    _viewAds.adUnitID = @"ca-app-pub-4565726969790499/8514822338";
+    _viewAds.adSize = kGADAdSizeBanner;
+    _viewAds.delegate = self;
+    
     arrCarOpened = [[NSMutableArray alloc] init];
     
     //add card shadow
@@ -50,6 +62,12 @@
     self.navigationItem.rightBarButtonItem = btnReset;
     
     [self updateNumCardLabel];
+    
+    if ([self areAdsRemoved]) {
+        _constraintBannerHeight.constant = 0;
+        _constraintHeightButtonCloseAds.constant = 0;
+    }
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(hideAdsBanner) name:@"areAdsRemoved" object:nil];
 }
 -(void)resetCards{
     if (!isOpeningCard) {
@@ -75,8 +93,12 @@
     
 }
 -(void)viewDidAppear:(BOOL)animated{
+    GADRequest* request = [GADRequest request];
+    request.testDevices = @[@"065021724f61ad8f1506dac2139b750a6079b804"];
+    [self.viewAds loadRequest:request];
     [svCardOpened setContentSize:CGSizeMake(svCardOpened.frame.size.width, svCardOpened.frame.size.height)];
     sizeListAtInit = svCardOpened.contentSize;
+    [FIRAnalytics logEventWithName:@"ShowScreen_Card" parameters:nil];
     [NSUserDefaults.standardUserDefaults setObject:@"3" forKey:@"last_tab_index"];
 }
 -(void)stopCardAnim{
@@ -189,6 +211,23 @@
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
 
 }
+
+-(IBAction)onPressCloseAds {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    vc.isPopup = YES;
+    [FIRAnalytics logEventWithName:@"PressCloseAds_Card" parameters:nil];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)hideAdsBanner {
+    _constraintBannerHeight.constant = 0;
+    _constraintHeightButtonCloseAds.constant = 0;
+    [self.view layoutSubviews];
+}
+-(void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    [_buttonCloseAds setHidden:NO];
+}
 /*
 #pragma mark - Navigation
 
@@ -198,4 +237,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)buttonCloseAds:(id)sender {
+}
 @end

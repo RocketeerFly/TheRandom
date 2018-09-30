@@ -8,12 +8,18 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #import "RandomNumber.h"
 #import "RecentNumberRandom.h"
+#import "SettingViewController.h"
+@import FirebaseAnalytics;
+
 #define MAXLENGTH 9
 #define INTERVAL_TICK 0.001
 #define TIME_RANDOM 0.05
 #define NUM_RECENT 10
 @interface RandomNumber ()
 @property (weak, nonatomic) IBOutlet GADBannerView *viewAd;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBannerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeightButtonCloseAds;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCloseAds;
 
 @end
 
@@ -24,11 +30,12 @@ static NSString* placeholder = @"Press and release button or shake to start";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [_buttonCloseAds setHidden:YES];
     //set up ads
     _viewAd.rootViewController = self;
-    _viewAd.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    _viewAd.adUnitID = @"ca-app-pub-4565726969790499/8514822338";
     _viewAd.adSize = kGADAdSizeBanner;
+    _viewAd.delegate = self;
     
     arrColor = [NSArray arrayWithObjects:
                 UIColorFromRGB(0x2cf33d),
@@ -121,6 +128,12 @@ static NSString* placeholder = @"Press and release button or shake to start";
     //use observer to hanele when app will close
     NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(applicationWillTerminate) name:UIApplicationWillTerminateNotification object:nil];
+    
+    if ([self areAdsRemoved]) {
+        _constraintBannerHeight.constant = 0;
+        _constraintHeightButtonCloseAds.constant = 0;
+    }
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(hideAdsBanner) name:@"areAdsRemoved" object:nil];
 }
 -(void)buttonOnTouch{
     btnRandomize.layer.borderColor = [UIColor colorWithRed:255/255.0f green:94/255.0f blue:58/255.0f alpha:1.0f].CGColor;
@@ -137,8 +150,10 @@ static NSString* placeholder = @"Press and release button or shake to start";
     //show banner iAds
     isLoaded = YES;
     GADRequest* request = [GADRequest request];
+    request.testDevices = @[@"065021724f61ad8f1506dac2139b750a6079b804"];
     [self.viewAd loadRequest:request];
     [self.view layoutSubviews];
+    [FIRAnalytics logEventWithName:@"ShowScreen_Number" parameters:nil];
     [NSUserDefaults.standardUserDefaults setObject:@"0" forKey:@"last_tab_index"];
 }
 - (void) viewWillLayoutSubviews{
@@ -465,6 +480,25 @@ static NSString* placeholder = @"Press and release button or shake to start";
     UIPasteboard* pasetBoard = [UIPasteboard generalPasteboard];
     pasetBoard.string = lbResult.text;
     [self.view makeToast:[NSString stringWithFormat:@"Copied '%@' successfully", lbResult.text]];
+}
+
+
+-(IBAction)onPressCloseAds {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    vc.isPopup = YES;
+    [FIRAnalytics logEventWithName:@"PressCloseAds_Number" parameters:nil];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)hideAdsBanner {
+    _constraintBannerHeight.constant = 0;
+    _constraintHeightButtonCloseAds.constant = 0;
+    [self.view layoutSubviews];
+}
+
+-(void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    [_buttonCloseAds setHidden:NO];
 }
 
 /*

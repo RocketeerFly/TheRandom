@@ -7,6 +7,7 @@ target 'TheRandom' do
 
   # Pods for TheRandom
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Firebase/Core'
   target 'TheRandomTests' do
     inherit! :search_paths
     # Pods for testing

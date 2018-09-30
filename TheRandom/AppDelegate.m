@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 @import GoogleMobileAds;
+@import Firebase;
 
 @interface AppDelegate ()
 
@@ -27,6 +28,8 @@
     UINavigationBar.appearance.backgroundColor = [UIColor colorWithRed:24/255.0 green:24/255.0 blue:24/255.0 alpha:1.0];
     UINavigationBar.appearance.barTintColor = [UIColor colorWithRed:24/255.0 green:24/255.0 blue:24/255.0 alpha:1.0];
     UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+    
+    [FIRApp configure];
     return YES;
 }
 

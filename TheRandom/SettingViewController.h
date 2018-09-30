@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <StoreKit/StoreKit.h>
+#import "BaseViewController.h"
 
-@interface SettingViewController : UIViewController
-
+@interface SettingViewController : BaseViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@property (nonatomic, assign) BOOL isPopup;
 @end

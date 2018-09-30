@@ -8,9 +8,14 @@
 
 #import "RandomDice.h"
 #import "RecentDice.h"
+#import "SettingViewController.h"
+@import FirebaseAnalytics;
 
 @interface RandomDice ()
 @property (weak, nonatomic) IBOutlet GADBannerView *viewAd;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBannerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeightButtonCloseAds;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCloseAds;
 
 @end
 
@@ -39,10 +44,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSBundle mainBundle] loadNibNamed:@"ColorPicker" owner:self options:nil];
+    [_buttonCloseAds setHidden:YES];
     // Do any additional setup after loading the view.
     arrDices = [[NSMutableArray alloc] init];
     arrPosDices = [[NSMutableArray alloc] init];
     arrDiceRolled = [[NSMutableArray alloc] init];
+    
+    _viewAd.rootViewController = self;
+    _viewAd.adUnitID = @"ca-app-pub-4565726969790499/8514822338";
+    _viewAd.adSize = kGADAdSizeBanner;
+    _viewAd.delegate = self;
     
     //Dice Colors
     arrDiceColor = [NSArray arrayWithObjects:
@@ -197,6 +208,13 @@
     NSString* url = [[NSBundle mainBundle] pathForResource:@"roll_dice" ofType:@"caf"];
     NSURL *soundURL = [NSURL URLWithString:url];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &sound1);
+    
+    if ([self areAdsRemoved]) {
+        _constraintBannerHeight.constant = 0;
+        _constraintHeightButtonCloseAds.constant = 0;
+    }
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(hideAdsBanner) name:@"areAdsRemoved" object:nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     UIBarButtonItem* buttonRecent = self.navigationItem.rightBarButtonItem;
@@ -208,6 +226,10 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    GADRequest* request = [GADRequest request];
+    request.testDevices = @[@"065021724f61ad8f1506dac2139b750a6079b804"];
+    [FIRAnalytics logEventWithName:@"ShowScreen_Dice" parameters:nil];
+    [self.viewAd loadRequest:request];
 }
 
 -(IBAction)chooseNumDices:(id)sender{
@@ -469,6 +491,25 @@
 -(void)clearRecent{
     [arrDiceRolled removeAllObjects];
 }
+
+-(IBAction)onPressCloseAds {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    vc.isPopup = YES;
+    [FIRAnalytics logEventWithName:@"PressCloseAds_Dice" parameters:nil];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)hideAdsBanner {
+    _constraintBannerHeight.constant = 0;
+    _constraintHeightButtonCloseAds.constant = 0;
+    [self.view layoutSubviews];
+}
+
+-(void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    [_buttonCloseAds setHidden:NO];
+}
+
 /*
 #pragma mark - Navigation
 

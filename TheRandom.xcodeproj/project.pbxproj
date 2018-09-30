@@ -25,6 +25,13 @@
 		8BFABC971B15852900050C3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC961B15852900050C3E /* Images.xcassets */; };
 		8BFABC9A1B15852900050C3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BFABC981B15852900050C3E /* LaunchScreen.xib */; };
 		8BFABCA61B15852900050C3E /* TheRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFABCA51B15852900050C3E /* TheRandomTests.m */; };
+		D3319780215F88F900541B72 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D331977F215F88F900541B72 /* StoreKit.framework */; };
+		D331978E215F98C600541B72 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3319785215F98C600541B72 /* SVIndefiniteAnimatedView.m */; };
+		D331978F215F98C600541B72 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3319787215F98C600541B72 /* SVProgressAnimatedView.m */; };
+		D3319790215F98C600541B72 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3319789215F98C600541B72 /* SVProgressHUD.bundle */; };
+		D3319791215F98C600541B72 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D331978B215F98C600541B72 /* SVProgressHUD.m */; };
+		D3319792215F98C600541B72 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D331978D215F98C600541B72 /* SVRadialGradientLayer.m */; };
+		D35E24A72160B849007DCF61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D35E24A62160B848007DCF61 /* GoogleService-Info.plist */; };
 		D3616865215BE6B700BBB702 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3616863215BE6B700BBB702 /* SettingViewController.m */; };
 		D3616866215BE6B700BBB702 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3616864215BE6B700BBB702 /* SettingViewController.xib */; };
 		D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F25C12157E0B80067E5C9 /* UIView+Toast.m */; };
@@ -83,6 +90,18 @@
 		8BFABC9F1B15852900050C3E /* TheRandomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheRandomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFABCA41B15852900050C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BFABCA51B15852900050C3E /* TheRandomTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheRandomTests.m; sourceTree = "<group>"; };
+		D331977F215F88F900541B72 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D3319784215F98C600541B72 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		D3319785215F98C600541B72 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		D3319786215F98C600541B72 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		D3319787215F98C600541B72 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		D3319788215F98C600541B72 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		D3319789215F98C600541B72 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		D331978A215F98C600541B72 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		D331978B215F98C600541B72 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		D331978C215F98C600541B72 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		D331978D215F98C600541B72 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		D35E24A62160B848007DCF61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D35F8D8921594041003A58F2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D3616862215BE6B700BBB702 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		D3616863215BE6B700BBB702 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
@@ -105,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECE0F0308806742D53BD0C60 /* libPods-TheRandom.a in Frameworks */,
+				D3319780215F88F900541B72 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +142,7 @@
 		1E03E4BAB2CC65F04D6AFA9A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D331977F215F88F900541B72 /* StoreKit.framework */,
 				430BF7CF79DB4A4EE5EE5796 /* libPods-TheRandom.a */,
 				183BE8F9955243542162EB36 /* libPods-TheRandomTests.a */,
 			);
@@ -151,6 +172,7 @@
 		8BFABC881B15852900050C3E /* TheRandom */ = {
 			isa = PBXGroup;
 			children = (
+				D35E24A62160B848007DCF61 /* GoogleService-Info.plist */,
 				D3CAC4BB215A9941003DA650 /* CustomView */,
 				D37F25C02157E0AA0067E5C9 /* Lib */,
 				8BD25D061B4BD90500360128 /* RecentDice.h */,
@@ -165,6 +187,8 @@
 				8B1BFF991B1CC5580061DB27 /* RandomDice.m */,
 				8B1BFF9A1B1CC5580061DB27 /* RandomList.h */,
 				8B1BFF9B1B1CC5580061DB27 /* RandomList.m */,
+				8B1BFF951B1CC5220061DB27 /* RandomCard.h */,
+				8B1BFF961B1CC5220061DB27 /* RandomCard.m */,
 				8BD67E1A1B1CBF4300DA1E9B /* RandomNumber.h */,
 				8BD67E1B1B1CBF4300DA1E9B /* RandomNumber.m */,
 				8BFABC8D1B15852900050C3E /* AppDelegate.h */,
@@ -175,8 +199,6 @@
 				8BFABC961B15852900050C3E /* Images.xcassets */,
 				8BFABC981B15852900050C3E /* LaunchScreen.xib */,
 				8BFABC891B15852900050C3E /* Supporting Files */,
-				8B1BFF951B1CC5220061DB27 /* RandomCard.h */,
-				8B1BFF961B1CC5220061DB27 /* RandomCard.m */,
 				8B65C7EE1B47DAB400B579D4 /* ColorPicker.xib */,
 				D3D1118C2156A6880088C761 /* BaseViewController.h */,
 				D3D1118D2156A6880088C761 /* BaseViewController.m */,
@@ -219,9 +241,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D3319783215F98C600541B72 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D3319784215F98C600541B72 /* SVIndefiniteAnimatedView.h */,
+				D3319785215F98C600541B72 /* SVIndefiniteAnimatedView.m */,
+				D3319786215F98C600541B72 /* SVProgressAnimatedView.h */,
+				D3319787215F98C600541B72 /* SVProgressAnimatedView.m */,
+				D3319788215F98C600541B72 /* SVProgressHUD-Prefix.pch */,
+				D3319789215F98C600541B72 /* SVProgressHUD.bundle */,
+				D331978A215F98C600541B72 /* SVProgressHUD.h */,
+				D331978B215F98C600541B72 /* SVProgressHUD.m */,
+				D331978C215F98C600541B72 /* SVRadialGradientLayer.h */,
+				D331978D215F98C600541B72 /* SVRadialGradientLayer.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		D37F25C02157E0AA0067E5C9 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				D3319783215F98C600541B72 /* SVProgressHUD */,
 				D37F25C22157E0B80067E5C9 /* UIView+Toast.h */,
 				D37F25C12157E0B80067E5C9 /* UIView+Toast.m */,
 			);
@@ -300,6 +340,11 @@
 					8BFABC851B15852900050C3E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 4P9377FEHH;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					8BFABC9E1B15852900050C3E = {
 						CreatedOnToolsVersion = 6.2;
@@ -331,6 +376,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3319790215F98C600541B72 /* SVProgressHUD.bundle in Resources */,
+				D35E24A72160B849007DCF61 /* GoogleService-Info.plist in Resources */,
 				8B3A80DE1B458C2700125AEC /* roll_dice.caf in Resources */,
 				D3616866215BE6B700BBB702 /* SettingViewController.xib in Resources */,
 				8BFABC951B15852900050C3E /* Main.storyboard in Resources */,
@@ -400,14 +447,18 @@
 				D3D1118E2156A6880088C761 /* BaseViewController.m in Sources */,
 				8BFABC8F1B15852900050C3E /* AppDelegate.m in Sources */,
 				D3CAC4BE215A995F003DA650 /* RecentListTableViewCell.m in Sources */,
+				D3319792215F98C600541B72 /* SVRadialGradientLayer.m in Sources */,
 				8B86499E1B22AF0200A77EFD /* RecentNumberRandom.m in Sources */,
 				8B619FCD1B2A7D9200CB52F9 /* AUIAutoGrowingTextView.m in Sources */,
 				8BD25D081B4BD90500360128 /* RecentDice.m in Sources */,
+				D331978F215F98C600541B72 /* SVProgressAnimatedView.m in Sources */,
 				8BFABC8C1B15852900050C3E /* main.m in Sources */,
+				D331978E215F98C600541B72 /* SVIndefiniteAnimatedView.m in Sources */,
 				8B1BFF9C1B1CC5580061DB27 /* RandomDice.m in Sources */,
 				D37F25C32157E0B80067E5C9 /* UIView+Toast.m in Sources */,
 				8B1BFF9D1B1CC5580061DB27 /* RandomList.m in Sources */,
 				8B7D9E841B2BDF7B001AF02B /* RandomListResult.m in Sources */,
+				D3319791215F98C600541B72 /* SVProgressHUD.m in Sources */,
 				8BD67E1C1B1CBF4300DA1E9B /* RandomNumber.m in Sources */,
 				8B1BFF971B1CC5220061DB27 /* RandomCard.m in Sources */,
 			);
@@ -537,6 +588,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TheRandom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -554,6 +606,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TheRandom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

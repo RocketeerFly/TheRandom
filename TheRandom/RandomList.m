@@ -8,9 +8,13 @@
 
 #import "RandomList.h"
 #import "RandomListResult.h"
-
+#import "SettingViewController.h"
+@import FirebaseAnalytics;
 @interface RandomList ()
 @property (weak, nonatomic) IBOutlet GADBannerView *viewAd;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBannerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHeightButtonCloseAds;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCloseAds;
 @end
 
 @implementation RandomList
@@ -19,7 +23,13 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_buttonCloseAds setHidden:YES];
     // Do any additional setup after loading the view.
+    _viewAd.rootViewController = self;
+    _viewAd.adUnitID = @"ca-app-pub-4565726969790499/8514822338";
+    _viewAd.adSize = kGADAdSizeBanner;
+    _viewAd.delegate = self;
+    
     int radius = 10;
     //update height
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
@@ -65,6 +75,12 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
     [btnRandomize addTarget:self action:@selector(buttonOnTouch) forControlEvents:UIControlEventTouchDragEnter];
     
     isNeedFillRecentList = YES;
+    
+    if ([self areAdsRemoved]) {
+        _constraintBannerHeight.constant = 0;
+        _constraintHeightButtonCloseAds.constant = 0;
+    }
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(hideAdsBanner) name:@"areAdsRemoved" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -82,6 +98,10 @@ static NSString *const placeholder = @"Please enter items, each on a separate li
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    GADRequest* request = [GADRequest request];
+    request.testDevices = @[@"065021724f61ad8f1506dac2139b750a6079b804"];
+    [self.viewAd loadRequest:request];
+    [FIRAnalytics logEventWithName:@"ShowScreen_List" parameters:nil];
     [NSUserDefaults.standardUserDefaults setObject:@"2" forKey:@"last_tab_index"];
 }
 -(void)buttonOnTouch{
@@ -202,5 +222,22 @@ withTolerance:(CGFloat)tolerance {
     fabs(g1 - g2) <= tolerance &&
     fabs(b1 - b2) <= tolerance &&
     fabs(a1 - a2) <= tolerance;
+}
+
+-(IBAction)onPressCloseAds {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    vc.isPopup = YES;
+    [FIRAnalytics logEventWithName:@"PressCloseAds_List" parameters:nil];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)hideAdsBanner {
+    _constraintBannerHeight.constant = 0;
+    _constraintHeightButtonCloseAds.constant = 0;
+    [self.view layoutSubviews];
+}
+-(void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    [_buttonCloseAds setHidden:NO];
 }
 @end
